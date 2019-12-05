@@ -1,0 +1,5876 @@
+openapi: 3.0.1
+info:
+  description: Service to interact with Policies and related objects.
+  title: Policy Service
+  version: v2.0.0
+servers:
+- url: //policy-service/
+tags:
+- name: /v2/policy
+paths:
+  /v2/policy/policy:
+    get:
+      operationId: getAllPolicies
+      parameters:
+      - description: requested offset in requested collection
+        in: query
+        name: offset
+        schema:
+          type: integer
+      - description: limit of results in requested collection
+        in: query
+        name: limit
+        schema:
+          type: integer
+      - in: query
+        name: sort
+        schema:
+          type: string
+      - in: query
+        name: filter
+        schema:
+          type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultListPolicy'
+          description: A SuccessResult containing the list of Policies the User has
+            access to.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (POLICY_R, POLICY_R_TENANT, POLICY_R_UPWARD, POLICY_R_TOKEN, POLICY_R_OWNER)
+            in the scopes claim, or, while the client can access the data it is forbidden
+            from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Gets all policies visible to the logged in user.
+      tags:
+      - /v2/policy
+    post:
+      operationId: createPolicy
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyCreateModel'
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultPolicy'
+          description: A SuccessResult containing the created policy.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (POLICY_W, POLICY_W_TENANT, POLICY_W_UPWARD, POLICY_W_TOKEN, POLICY_W_OWNER)
+            in the scopes claim, or, while the client can access the data it is forbidden
+            from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Creates an individual policy.
+      tags:
+      - /v2/policy
+      x-codegen-request-body-name: PolicyCreateModel
+  /v2/policy/policy/policynumber/{policynumber}:
+    get:
+      operationId: getPoliciesByPolicyNumber
+      parameters:
+      - description: requested offset in requested collection
+        in: query
+        name: offset
+        schema:
+          type: integer
+      - description: limit of results in requested collection
+        in: query
+        name: limit
+        schema:
+          type: integer
+      - in: query
+        name: sort
+        schema:
+          type: string
+      - in: query
+        name: filter
+        schema:
+          type: string
+      - description: The policyNumber of the policy.
+        in: path
+        name: policynumber
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultListPolicy'
+          description: A SuccessResult containing the list of Policies the User has
+            access to with the specified policynumber.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (POLICY_R, POLICY_R_TENANT, POLICY_R_UPWARD, POLICY_R_TOKEN, POLICY_R_OWNER)
+            in the scopes claim, or, while the client can access the data it is forbidden
+            from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Gets all policies visible to the logged in user with the specified
+        policynumber.
+      tags:
+      - /v2/policy
+  /v2/policy/policy/policyholderid/{policyholderid}:
+    get:
+      operationId: getPoliciesByPolicyHolderId
+      parameters:
+      - description: requested offset in requested collection
+        in: query
+        name: offset
+        schema:
+          type: integer
+      - description: limit of results in requested collection
+        in: query
+        name: limit
+        schema:
+          type: integer
+      - in: query
+        name: sort
+        schema:
+          type: string
+      - in: query
+        name: filter
+        schema:
+          type: string
+      - description: The policyHolderId of the policy.
+        in: path
+        name: policyholderid
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultListPolicy'
+          description: A SuccessResult containing the list of Policies the User has
+            access to with the specified policyholderid.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (POLICY_R, POLICY_R_TENANT, POLICY_R_UPWARD, POLICY_R_TOKEN, POLICY_R_OWNER)
+            in the scopes claim, or, while the client can access the data it is forbidden
+            from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Gets all policies visible to the logged in user with the specified
+        policyholderid.
+      tags:
+      - /v2/policy
+  /v2/policy/policy/policybundleid/{policybundleid}:
+    get:
+      operationId: getPoliciesByPolicyBundleId
+      parameters:
+      - description: requested offset in requested collection
+        in: query
+        name: offset
+        schema:
+          type: integer
+      - description: limit of results in requested collection
+        in: query
+        name: limit
+        schema:
+          type: integer
+      - in: query
+        name: sort
+        schema:
+          type: string
+      - in: query
+        name: filter
+        schema:
+          type: string
+      - description: The policyBundleId of the policy.
+        in: path
+        name: policybundleid
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultListPolicy'
+          description: A SuccessResult containing the list of Policies the User has
+            access to with the specified policybundleid.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (POLICY_R, POLICY_R_TENANT, POLICY_R_UPWARD, POLICY_R_TOKEN, POLICY_R_OWNER)
+            in the scopes claim, or, while the client can access the data it is forbidden
+            from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Gets all policies visible to the logged in user with the specified
+        policybundleid.
+      tags:
+      - /v2/policy
+  /v2/policy/policy/{id}:
+    delete:
+      operationId: deletePolicy
+      parameters:
+      - description: The policy ID.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultPolicy'
+          description: A SuccessResult containing the deleted policy.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (POLICY_W, POLICY_W_TENANT, POLICY_W_UPWARD, POLICY_W_TOKEN, POLICY_W_OWNER)
+            in the scopes claim, or, while the client can access the data it is forbidden
+            from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Deletes an individual policy.
+      tags:
+      - /v2/policy
+    get:
+      operationId: getPolicy
+      parameters:
+      - description: The policy ID.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultPolicy'
+          description: A SuccessResult containing the policy.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (POLICY_R, POLICY_R_TENANT, POLICY_R_UPWARD, POLICY_R_TOKEN, POLICY_R_OWNER)
+            in the scopes claim, or, while the client can access the data it is forbidden
+            from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Gets an individual policy.
+      tags:
+      - /v2/policy
+    put:
+      operationId: updatePolicy
+      parameters:
+      - description: The policy ID.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyUpdateModel'
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultPolicy'
+          description: A SuccessResult containing the updated policy.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (POLICY_W, POLICY_W_TENANT, POLICY_W_UPWARD, POLICY_W_TOKEN, POLICY_W_OWNER)
+            in the scopes claim, or, while the client can access the data it is forbidden
+            from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Updates an individual policy.
+      tags:
+      - /v2/policy
+      x-codegen-request-body-name: PolicyUpdateModel
+  /v2/policy/policy/{id}/owner:
+    put:
+      operationId: setPolicyOwner
+      parameters:
+      - description: The policy ID.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetPolicyOwnerModel'
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultPolicy'
+          description: A SuccessResult containing the updated policy.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (POLICY_W, POLICY_W_TENANT, POLICY_W_UPWARD, POLICY_W_TOKEN, POLICY_W_OWNER)
+            in the scopes claim, or, while the client can access the data it is forbidden
+            from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Changes the owner of the policy.
+      tags:
+      - /v2/policy
+      x-codegen-request-body-name: SetPolicyOwnerModel
+  /v2/policy/policy/{id}/history:
+    get:
+      operationId: getPolicyHistory
+      parameters:
+      - description: requested offset in requested collection
+        in: query
+        name: offset
+        schema:
+          type: integer
+      - description: limit of results in requested collection
+        in: query
+        name: limit
+        schema:
+          type: integer
+      - in: query
+        name: sort
+        schema:
+          type: string
+      - in: query
+        name: filter
+        schema:
+          type: string
+      - description: The policy ID.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultListPolicyHistory'
+          description: A SuccessResult containing the list of historical Policies
+            the User has access to with the specified id.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (POLICY_R, POLICY_R_TENANT, POLICY_R_UPWARD, POLICY_R_TOKEN, POLICY_R_OWNER)
+            in the scopes claim, or, while the client can access the data it is forbidden
+            from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Get the history of the policy.
+      tags:
+      - /v2/policy
+  /v2/policy/amendpolicy/{id}:
+    post:
+      operationId: AmendPolicy
+      parameters:
+      - description: The policy ID.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AmendPolicyModel'
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultAmendPolicyResponseModel'
+          description: A SuccessResult containing the policy bundle for the amendment.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (POLICY_AMEND) in the scopes claim or the client's account ID is not part
+            of the account path of the entity.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Amends an existing policy.
+      tags:
+      - /v2/policy
+      x-codegen-request-body-name: AmendPolicyModel
+  /v2/policy/cancelpolicy/{id}:
+    post:
+      operationId: cancelPolicy
+      parameters:
+      - description: The policy ID.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyCancelModel'
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultCancelPolicyResponseModel'
+          description: A SuccessResult containing the policy bundle that got canceled.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (POLICY_CANCEL) in the scopes claim or the client's account ID is not
+            part of the account path of the entity.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Cancel an existing lapsing policy.
+      tags:
+      - /v2/policy
+      x-codegen-request-body-name: PolicyCancelModel
+  /v2/policy/convertquotes:
+    post:
+      operationId: convertQuotes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConvertQuoteModel'
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultConvertQuoteResponse'
+          description: A SuccessResult containing the created policy bundle and list
+            of new policies converted from given quotes.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (POLICY_CONVERT) in the scopes claim or the client's account ID is not
+            part of the account path of the entity.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Converts one or more quotes into policies.
+      tags:
+      - /v2/policy
+      x-codegen-request-body-name: ConvertQuoteModel
+  /v2/policy/reviewpolicy/{id}:
+    post:
+      operationId: reviewPolicy
+      parameters:
+      - description: The policy ID.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyReviewModel'
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultReviewPolicyResponseModel'
+          description: A SuccessResult containing the policy bundle for the review.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (POLICY_REVIEW) in the scopes claim or the client's account ID is not
+            part of the account path of the entity.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Approves and/or revises policy stuck in review.
+      tags:
+      - /v2/policy
+      x-codegen-request-body-name: PolicyReviewModel
+  /v2/policy/endorsepolicy/{id}:
+    post:
+      operationId: endorsePolicy
+      parameters:
+      - description: The policy ID.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyEndorseModel'
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultEndorsePolicyResponseModel'
+          description: A SuccessResult containing the policy bundle for the endorsement.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (POLICY_ENDORSE) in the scopes claim or the client's account ID is not
+            part of the account path of the entity.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Endorses an existing policy.
+      tags:
+      - /v2/policy
+      x-codegen-request-body-name: PolicyEndorseModel
+  /v2/policy/lapsepolicy/{id}:
+    post:
+      operationId: lapsePolicy
+      parameters:
+      - description: The policy ID.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyLapseModel'
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultLapsePolicyResponseModel'
+          description: A SuccessResult containing the policy bundle for the lapse.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (POLICY_LAPSE) in the scopes claim or the client's account ID is not part
+            of the account path of the entity.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Lapse an existing lapsing policy.
+      tags:
+      - /v2/policy
+      x-codegen-request-body-name: PolicyLapseModel
+  /v2/policy/terminatepolicy/{id}:
+    post:
+      operationId: terminatePolicy
+      parameters:
+      - description: The policy ID.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyTerminateModel'
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultTerminatePolicyResponseModel'
+          description: A SuccessResult containing the policy bundle that got terminated.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (POLICY_TERMINATE) in the scopes claim or the client's account ID is not
+            part of the account path of the entity.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Terminate an existing lapsing policy.
+      tags:
+      - /v2/policy
+      x-codegen-request-body-name: PolicyTerminateModel
+  /v2/policy/policynote:
+    get:
+      operationId: getAllPolicyNotes
+      parameters:
+      - description: requested offset in requested collection
+        in: query
+        name: offset
+        schema:
+          type: integer
+      - description: limit of results in requested collection
+        in: query
+        name: limit
+        schema:
+          type: integer
+      - in: query
+        name: sort
+        schema:
+          type: string
+      - in: query
+        name: filter
+        schema:
+          type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultListPolicyNote'
+          description: A SuccessResult containing the list of PolicyNotes the User
+            has access to.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (POLICYNOTE_R, POLICYNOTE_R_TENANT, POLICYNOTE_R_UPWARD, POLICYNOTE_R_TOKEN,
+            POLICYNOTE_R_OWNER) in the scopes claim, or, while the client can access
+            the data it is forbidden from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Gets all policynotes visible to the logged in user.
+      tags:
+      - /v2/policy
+    post:
+      operationId: createPolicyNote
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyNoteCreateModel'
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultPolicyNote'
+          description: A SuccessResult containing the created policynote.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (POLICYNOTE_W, POLICYNOTE_W_TENANT, POLICYNOTE_W_UPWARD, POLICYNOTE_W_TOKEN,
+            POLICYNOTE_W_OWNER) in the scopes claim, or, while the client can access
+            the data it is forbidden from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Creates an individual policynote.
+      tags:
+      - /v2/policy
+      x-codegen-request-body-name: PolicyNoteCreateModel
+  /v2/policy/policynote/policyid/{policyid}:
+    get:
+      operationId: getPolicyNotesByPolicyId
+      parameters:
+      - description: requested offset in requested collection
+        in: query
+        name: offset
+        schema:
+          type: integer
+      - description: limit of results in requested collection
+        in: query
+        name: limit
+        schema:
+          type: integer
+      - in: query
+        name: sort
+        schema:
+          type: string
+      - in: query
+        name: filter
+        schema:
+          type: string
+      - description: The policyId of the policynote.
+        in: path
+        name: policyid
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultListPolicyNote'
+          description: A SuccessResult containing the list of PolicyNotes the User
+            has access to with the specified policyid.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (POLICYNOTE_R, POLICYNOTE_R_TENANT, POLICYNOTE_R_UPWARD, POLICYNOTE_R_TOKEN,
+            POLICYNOTE_R_OWNER) in the scopes claim, or, while the client can access
+            the data it is forbidden from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Gets all policynotes visible to the logged in user with the specified
+        policyid.
+      tags:
+      - /v2/policy
+  /v2/policy/policynote/{id}:
+    delete:
+      operationId: deletePolicyNote
+      parameters:
+      - description: The policynote ID.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultPolicyNote'
+          description: A SuccessResult containing the deleted policynote.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (POLICYNOTE_W, POLICYNOTE_W_TENANT, POLICYNOTE_W_UPWARD, POLICYNOTE_W_TOKEN,
+            POLICYNOTE_W_OWNER) in the scopes claim, or, while the client can access
+            the data it is forbidden from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Deletes an individual policynote.
+      tags:
+      - /v2/policy
+    get:
+      operationId: getPolicyNote
+      parameters:
+      - description: The policynote ID.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultPolicyNote'
+          description: A SuccessResult containing the policynote.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (POLICYNOTE_R, POLICYNOTE_R_TENANT, POLICYNOTE_R_UPWARD, POLICYNOTE_R_TOKEN,
+            POLICYNOTE_R_OWNER) in the scopes claim, or, while the client can access
+            the data it is forbidden from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Gets an individual policynote.
+      tags:
+      - /v2/policy
+    put:
+      operationId: updatePolicyNote
+      parameters:
+      - description: The policynote ID.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyNoteUpdateModel'
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultPolicyNote'
+          description: A SuccessResult containing the updated policynote.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (POLICYNOTE_W, POLICYNOTE_W_TENANT, POLICYNOTE_W_UPWARD, POLICYNOTE_W_TOKEN,
+            POLICYNOTE_W_OWNER) in the scopes claim, or, while the client can access
+            the data it is forbidden from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Updates an individual policynote.
+      tags:
+      - /v2/policy
+      x-codegen-request-body-name: PolicyNoteUpdateModel
+  /v2/policy/policyholder:
+    get:
+      operationId: getAllPolicyHolders
+      parameters:
+      - description: requested offset in requested collection
+        in: query
+        name: offset
+        schema:
+          type: integer
+      - description: limit of results in requested collection
+        in: query
+        name: limit
+        schema:
+          type: integer
+      - in: query
+        name: sort
+        schema:
+          type: string
+      - in: query
+        name: filter
+        schema:
+          type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultListPolicyHolder'
+          description: A SuccessResult containing the list of PolicyHolders the User
+            has access to.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (POLICYHOLDER_R, POLICYHOLDER_R_TENANT, POLICYHOLDER_R_UPWARD, POLICYHOLDER_R_TOKEN,
+            POLICYHOLDER_R_OWNER) in the scopes claim, or, while the client can access
+            the data it is forbidden from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Gets all policyholders visible to the logged in user.
+      tags:
+      - /v2/policy
+    post:
+      operationId: createPolicyHolder
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyHolderCreateModel'
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultPolicyHolder'
+          description: A SuccessResult containing the created policyholder.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (POLICYHOLDER_W, POLICYHOLDER_W_TENANT, POLICYHOLDER_W_UPWARD, POLICYHOLDER_W_TOKEN,
+            POLICYHOLDER_W_OWNER) in the scopes claim, or, while the client can access
+            the data it is forbidden from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Creates an individual policyholder.
+      tags:
+      - /v2/policy
+      x-codegen-request-body-name: PolicyHolderCreateModel
+  /v2/policy/policyholder/userid/{userid}:
+    get:
+      operationId: getPolicyHoldersByUserId
+      parameters:
+      - description: requested offset in requested collection
+        in: query
+        name: offset
+        schema:
+          type: integer
+      - description: limit of results in requested collection
+        in: query
+        name: limit
+        schema:
+          type: integer
+      - in: query
+        name: sort
+        schema:
+          type: string
+      - in: query
+        name: filter
+        schema:
+          type: string
+      - description: The userId of the policyholder.
+        in: path
+        name: userid
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultListPolicyHolder'
+          description: A SuccessResult containing the list of PolicyHolders the User
+            has access to with the specified userid.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (POLICYHOLDER_R, POLICYHOLDER_R_TENANT, POLICYHOLDER_R_UPWARD, POLICYHOLDER_R_TOKEN,
+            POLICYHOLDER_R_OWNER) in the scopes claim, or, while the client can access
+            the data it is forbidden from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Gets all policyholders visible to the logged in user with the specified
+        userid.
+      tags:
+      - /v2/policy
+  /v2/policy/policyholder/{id}:
+    delete:
+      operationId: deletePolicyHolder
+      parameters:
+      - description: The policyholder ID.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultPolicyHolder'
+          description: A SuccessResult containing the deleted policyholder.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (POLICYHOLDER_W, POLICYHOLDER_W_TENANT, POLICYHOLDER_W_UPWARD, POLICYHOLDER_W_TOKEN,
+            POLICYHOLDER_W_OWNER) in the scopes claim, or, while the client can access
+            the data it is forbidden from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Deletes an individual policyholder.
+      tags:
+      - /v2/policy
+    get:
+      operationId: getPolicyHolder
+      parameters:
+      - description: The policyholder ID.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultPolicyHolder'
+          description: A SuccessResult containing the policyholder.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (POLICYHOLDER_R, POLICYHOLDER_R_TENANT, POLICYHOLDER_R_UPWARD, POLICYHOLDER_R_TOKEN,
+            POLICYHOLDER_R_OWNER) in the scopes claim, or, while the client can access
+            the data it is forbidden from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Gets an individual policyholder.
+      tags:
+      - /v2/policy
+    put:
+      operationId: updatePolicyHolder
+      parameters:
+      - description: The policyholder ID.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyHolderUpdateModel'
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultPolicyHolder'
+          description: A SuccessResult containing the updated policyholder.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (POLICYHOLDER_W, POLICYHOLDER_W_TENANT, POLICYHOLDER_W_UPWARD, POLICYHOLDER_W_TOKEN,
+            POLICYHOLDER_W_OWNER) in the scopes claim, or, while the client can access
+            the data it is forbidden from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Updates an individual policyholder.
+      tags:
+      - /v2/policy
+      x-codegen-request-body-name: PolicyHolderUpdateModel
+  /v2/policy/policyholder/{id}/owner:
+    put:
+      operationId: setPolicyHolderOwner
+      parameters:
+      - description: The policyholder ID.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetPolicyHolderOwnerModel'
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultPolicyHolder'
+          description: A SuccessResult containing the updated policyholder.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (POLICYHOLDER_W, POLICYHOLDER_W_TENANT, POLICYHOLDER_W_UPWARD, POLICYHOLDER_W_TOKEN,
+            POLICYHOLDER_W_OWNER) in the scopes claim, or, while the client can access
+            the data it is forbidden from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Changes the owner of the policyholder.
+      tags:
+      - /v2/policy
+      x-codegen-request-body-name: SetPolicyHolderOwnerModel
+  /v2/policy/policyholdernote:
+    get:
+      operationId: getAllPolicyHolderNotes
+      parameters:
+      - description: requested offset in requested collection
+        in: query
+        name: offset
+        schema:
+          type: integer
+      - description: limit of results in requested collection
+        in: query
+        name: limit
+        schema:
+          type: integer
+      - in: query
+        name: sort
+        schema:
+          type: string
+      - in: query
+        name: filter
+        schema:
+          type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultListPolicyHolderNote'
+          description: A SuccessResult containing the list of PolicyHolderNotes the
+            User has access to.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (POLICYHOLDERNOTE_R, POLICYHOLDERNOTE_R_TENANT, POLICYHOLDERNOTE_R_UPWARD,
+            POLICYHOLDERNOTE_R_TOKEN, POLICYHOLDERNOTE_R_OWNER) in the scopes claim,
+            or, while the client can access the data it is forbidden from executing
+            the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Gets all policyholdernotes visible to the logged in user.
+      tags:
+      - /v2/policy
+    post:
+      operationId: createPolicyHolderNote
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyHolderNoteCreateModel'
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultPolicyHolderNote'
+          description: A SuccessResult containing the created policyholdernote.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (POLICYHOLDERNOTE_W, POLICYHOLDERNOTE_W_TENANT, POLICYHOLDERNOTE_W_UPWARD,
+            POLICYHOLDERNOTE_W_TOKEN, POLICYHOLDERNOTE_W_OWNER) in the scopes claim,
+            or, while the client can access the data it is forbidden from executing
+            the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Creates an individual policyholdernote.
+      tags:
+      - /v2/policy
+      x-codegen-request-body-name: PolicyHolderNoteCreateModel
+  /v2/policy/policyholdernote/policyholderid/{policyholderid}:
+    get:
+      operationId: getPolicyHolderNotesByPolicyHolderId
+      parameters:
+      - description: requested offset in requested collection
+        in: query
+        name: offset
+        schema:
+          type: integer
+      - description: limit of results in requested collection
+        in: query
+        name: limit
+        schema:
+          type: integer
+      - in: query
+        name: sort
+        schema:
+          type: string
+      - in: query
+        name: filter
+        schema:
+          type: string
+      - description: The policyHolderId of the policyholdernote.
+        in: path
+        name: policyholderid
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultListPolicyHolderNote'
+          description: A SuccessResult containing the list of PolicyHolderNotes the
+            User has access to with the specified policyholderid.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (POLICYHOLDERNOTE_R, POLICYHOLDERNOTE_R_TENANT, POLICYHOLDERNOTE_R_UPWARD,
+            POLICYHOLDERNOTE_R_TOKEN, POLICYHOLDERNOTE_R_OWNER) in the scopes claim,
+            or, while the client can access the data it is forbidden from executing
+            the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Gets all policyholdernotes visible to the logged in user with the specified
+        policyholderid.
+      tags:
+      - /v2/policy
+  /v2/policy/policyholdernote/{id}:
+    delete:
+      operationId: deletePolicyHolderNote
+      parameters:
+      - description: The policyholdernote ID.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultPolicyHolderNote'
+          description: A SuccessResult containing the deleted policyholdernote.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (POLICYHOLDERNOTE_W, POLICYHOLDERNOTE_W_TENANT, POLICYHOLDERNOTE_W_UPWARD,
+            POLICYHOLDERNOTE_W_TOKEN, POLICYHOLDERNOTE_W_OWNER) in the scopes claim,
+            or, while the client can access the data it is forbidden from executing
+            the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Deletes an individual policyholdernote.
+      tags:
+      - /v2/policy
+    get:
+      operationId: getPolicyHolderNote
+      parameters:
+      - description: The policyholdernote ID.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultPolicyHolderNote'
+          description: A SuccessResult containing the policyholdernote.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (POLICYHOLDERNOTE_R, POLICYHOLDERNOTE_R_TENANT, POLICYHOLDERNOTE_R_UPWARD,
+            POLICYHOLDERNOTE_R_TOKEN, POLICYHOLDERNOTE_R_OWNER) in the scopes claim,
+            or, while the client can access the data it is forbidden from executing
+            the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Gets an individual policyholdernote.
+      tags:
+      - /v2/policy
+    put:
+      operationId: updatePolicyHolderNote
+      parameters:
+      - description: The policyholdernote ID.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyHolderNoteUpdateModel'
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultPolicyHolderNote'
+          description: A SuccessResult containing the updated policyholdernote.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (POLICYHOLDERNOTE_W, POLICYHOLDERNOTE_W_TENANT, POLICYHOLDERNOTE_W_UPWARD,
+            POLICYHOLDERNOTE_W_TOKEN, POLICYHOLDERNOTE_W_OWNER) in the scopes claim,
+            or, while the client can access the data it is forbidden from executing
+            the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Updates an individual policyholdernote.
+      tags:
+      - /v2/policy
+      x-codegen-request-body-name: PolicyHolderNoteUpdateModel
+  /v2/policy/policybundle:
+    get:
+      operationId: getAllPolicyBundles
+      parameters:
+      - description: requested offset in requested collection
+        in: query
+        name: offset
+        schema:
+          type: integer
+      - description: limit of results in requested collection
+        in: query
+        name: limit
+        schema:
+          type: integer
+      - in: query
+        name: sort
+        schema:
+          type: string
+      - in: query
+        name: filter
+        schema:
+          type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultListPolicyBundle'
+          description: A SuccessResult containing the list of PolicyBundles the User
+            has access to.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (POLICYBUNDLE_R, POLICYBUNDLE_R_TENANT, POLICYBUNDLE_R_UPWARD, POLICYBUNDLE_R_TOKEN,
+            POLICYBUNDLE_R_OWNER) in the scopes claim, or, while the client can access
+            the data it is forbidden from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Gets all policybundles visible to the logged in user.
+      tags:
+      - /v2/policy
+    post:
+      operationId: createPolicyBundle
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyBundleCreateModel'
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultPolicyBundle'
+          description: A SuccessResult containing the created policybundle.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (POLICYBUNDLE_W, POLICYBUNDLE_W_TENANT, POLICYBUNDLE_W_UPWARD, POLICYBUNDLE_W_TOKEN,
+            POLICYBUNDLE_W_OWNER) in the scopes claim, or, while the client can access
+            the data it is forbidden from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Creates an individual policybundle.
+      tags:
+      - /v2/policy
+      x-codegen-request-body-name: PolicyBundleCreateModel
+  /v2/policy/policybundle/{id}:
+    delete:
+      operationId: deletePolicyBundle
+      parameters:
+      - description: The policybundle ID.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultPolicyBundle'
+          description: A SuccessResult containing the deleted policybundle.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (POLICYBUNDLE_W, POLICYBUNDLE_W_TENANT, POLICYBUNDLE_W_UPWARD, POLICYBUNDLE_W_TOKEN,
+            POLICYBUNDLE_W_OWNER) in the scopes claim, or, while the client can access
+            the data it is forbidden from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Deletes an individual policybundle.
+      tags:
+      - /v2/policy
+    get:
+      operationId: getPolicyBundle
+      parameters:
+      - description: The policybundle ID.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultPolicyBundle'
+          description: A SuccessResult containing the policybundle.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (POLICYBUNDLE_R, POLICYBUNDLE_R_TENANT, POLICYBUNDLE_R_UPWARD, POLICYBUNDLE_R_TOKEN,
+            POLICYBUNDLE_R_OWNER) in the scopes claim, or, while the client can access
+            the data it is forbidden from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Gets an individual policybundle.
+      tags:
+      - /v2/policy
+    put:
+      operationId: updatePolicyBundle
+      parameters:
+      - description: The policybundle ID.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PolicyBundleUpdateModel'
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultPolicyBundle'
+          description: A SuccessResult containing the updated policybundle.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (POLICYBUNDLE_W, POLICYBUNDLE_W_TENANT, POLICYBUNDLE_W_UPWARD, POLICYBUNDLE_W_TOKEN,
+            POLICYBUNDLE_W_OWNER) in the scopes claim, or, while the client can access
+            the data it is forbidden from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Updates an individual policybundle.
+      tags:
+      - /v2/policy
+      x-codegen-request-body-name: PolicyBundleUpdateModel
+  /v2/policy/policybundle/{id}/owner:
+    put:
+      operationId: setPolicyBundleOwner
+      parameters:
+      - description: The policybundle ID.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetPolicyBundleOwnerModel'
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultPolicyBundle'
+          description: A SuccessResult containing the updated policybundle.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (POLICYBUNDLE_W, POLICYBUNDLE_W_TENANT, POLICYBUNDLE_W_UPWARD, POLICYBUNDLE_W_TOKEN,
+            POLICYBUNDLE_W_OWNER) in the scopes claim, or, while the client can access
+            the data it is forbidden from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Changes the owner of the policybundle.
+      tags:
+      - /v2/policy
+      x-codegen-request-body-name: SetPolicyBundleOwnerModel
+  /v2/policy/invoice:
+    get:
+      operationId: getAllInvoices
+      parameters:
+      - description: requested offset in requested collection
+        in: query
+        name: offset
+        schema:
+          type: integer
+      - description: limit of results in requested collection
+        in: query
+        name: limit
+        schema:
+          type: integer
+      - in: query
+        name: sort
+        schema:
+          type: string
+      - in: query
+        name: filter
+        schema:
+          type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultListInvoice'
+          description: A SuccessResult containing the list of Invoices the User has
+            access to.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (INVOICE_R, INVOICE_R_TENANT, INVOICE_R_UPWARD, INVOICE_R_TOKEN, INVOICE_R_OWNER)
+            in the scopes claim, or, while the client can access the data it is forbidden
+            from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Gets all invoices visible to the logged in user.
+      tags:
+      - /v2/policy
+    post:
+      operationId: createInvoice
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvoiceCreateModel'
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultInvoice'
+          description: A SuccessResult containing the created invoice.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (INVOICE_W, INVOICE_W_TENANT, INVOICE_W_UPWARD, INVOICE_W_TOKEN, INVOICE_W_OWNER)
+            in the scopes claim, or, while the client can access the data it is forbidden
+            from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Creates an individual invoice.
+      tags:
+      - /v2/policy
+      x-codegen-request-body-name: InvoiceCreateModel
+  /v2/policy/invoice/{id}:
+    delete:
+      operationId: deleteInvoice
+      parameters:
+      - description: The invoice ID.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultInvoice'
+          description: A SuccessResult containing the deleted invoice.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (INVOICE_W, INVOICE_W_TENANT, INVOICE_W_UPWARD, INVOICE_W_TOKEN, INVOICE_W_OWNER)
+            in the scopes claim, or, while the client can access the data it is forbidden
+            from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Deletes an individual invoice.
+      tags:
+      - /v2/policy
+    get:
+      operationId: getInvoice
+      parameters:
+      - description: The invoice ID.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultInvoice'
+          description: A SuccessResult containing the invoice.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (INVOICE_R, INVOICE_R_TENANT, INVOICE_R_UPWARD, INVOICE_R_TOKEN, INVOICE_R_OWNER)
+            in the scopes claim, or, while the client can access the data it is forbidden
+            from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Gets an individual invoice.
+      tags:
+      - /v2/policy
+    put:
+      operationId: updateInvoice
+      parameters:
+      - description: The invoice ID.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvoiceUpdateModel'
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultInvoice'
+          description: A SuccessResult containing the updated invoice.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (INVOICE_W, INVOICE_W_TENANT, INVOICE_W_UPWARD, INVOICE_W_TOKEN, INVOICE_W_OWNER)
+            in the scopes claim, or, while the client can access the data it is forbidden
+            from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Updates an individual invoice.
+      tags:
+      - /v2/policy
+      x-codegen-request-body-name: InvoiceUpdateModel
+  /v2/policy/invoice/{id}/owner:
+    put:
+      operationId: setInvoiceOwner
+      parameters:
+      - description: The invoice ID.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetInvoiceOwnerModel'
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultInvoice'
+          description: A SuccessResult containing the updated invoice.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (INVOICE_W, INVOICE_W_TENANT, INVOICE_W_UPWARD, INVOICE_W_TOKEN, INVOICE_W_OWNER)
+            in the scopes claim, or, while the client can access the data it is forbidden
+            from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Changes the owner of the invoice.
+      tags:
+      - /v2/policy
+      x-codegen-request-body-name: SetInvoiceOwnerModel
+  /v2/policy/invoice/pay/{id}:
+    post:
+      operationId: payInvoice
+      parameters:
+      - description: The invoice ID.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultInvoice'
+          description: The invoice that has been paid.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (PAY_INVOICE) in the scopes claim or the client's account ID is not part
+            of the account path of the entity.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+        409:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResultInvoicePaid'
+          description: Error result if invoice already paid.
+      summary: Initiate payment of an invoice.
+      tags:
+      - /v2/policy
+      x-codegen-request-body-name: body
+  /v2/policy/invoice/manualpay/{id}:
+    post:
+      operationId: manuallyPayInvoice
+      parameters:
+      - description: The invoice ID.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultInvoice'
+          description: The invoice that has been paid.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (PAY_INVOICE) in the scopes claim or the client's account ID is not part
+            of the account path of the entity.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+        409:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResultInvoicePaid'
+          description: Error result if invoice already paid.
+      summary: Initiate the manual payment of an invoice.
+      tags:
+      - /v2/policy
+      x-codegen-request-body-name: body
+  /v2/policy/invoice/policyholderid/{policyholderid}:
+    get:
+      operationId: getInvoicesByPolicyHolderId
+      parameters:
+      - description: requested offset in requested collection
+        in: query
+        name: offset
+        schema:
+          type: integer
+      - description: limit of results in requested collection
+        in: query
+        name: limit
+        schema:
+          type: integer
+      - in: query
+        name: sort
+        schema:
+          type: string
+      - in: query
+        name: filter
+        schema:
+          type: string
+      - description: The policyHolderId of the invoice.
+        in: path
+        name: policyholderid
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultListInvoice'
+          description: A SuccessResult containing the list of Invoices the User has
+            access to with the specified policyholderid.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (INVOICE_R, INVOICE_R_TENANT, INVOICE_R_UPWARD, INVOICE_R_TOKEN, INVOICE_R_OWNER)
+            in the scopes claim, or, while the client can access the data it is forbidden
+            from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Gets all invoices visible to the logged in user with the specified
+        policyholderid.
+      tags:
+      - /v2/policy
+  /v2/policy/invoiceline:
+    get:
+      operationId: getAllInvoiceLines
+      parameters:
+      - description: requested offset in requested collection
+        in: query
+        name: offset
+        schema:
+          type: integer
+      - description: limit of results in requested collection
+        in: query
+        name: limit
+        schema:
+          type: integer
+      - in: query
+        name: sort
+        schema:
+          type: string
+      - in: query
+        name: filter
+        schema:
+          type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultListInvoiceLine'
+          description: A SuccessResult containing the list of InvoiceLines the User
+            has access to.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (INVOICELINE_R, INVOICELINE_R_TENANT, INVOICELINE_R_UPWARD, INVOICELINE_R_TOKEN,
+            INVOICELINE_R_OWNER) in the scopes claim, or, while the client can access
+            the data it is forbidden from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Gets all invoicelines visible to the logged in user.
+      tags:
+      - /v2/policy
+    post:
+      operationId: createInvoiceLine
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvoiceLineCreateModel'
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultInvoiceLine'
+          description: A SuccessResult containing the created invoiceline.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (INVOICELINE_W, INVOICELINE_W_TENANT, INVOICELINE_W_UPWARD, INVOICELINE_W_TOKEN,
+            INVOICELINE_W_OWNER) in the scopes claim, or, while the client can access
+            the data it is forbidden from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Creates an individual invoiceline.
+      tags:
+      - /v2/policy
+      x-codegen-request-body-name: InvoiceLineCreateModel
+  /v2/policy/invoiceline/{id}:
+    delete:
+      operationId: deleteInvoiceLine
+      parameters:
+      - description: The invoiceline ID.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultInvoiceLine'
+          description: A SuccessResult containing the deleted invoiceline.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (INVOICELINE_W, INVOICELINE_W_TENANT, INVOICELINE_W_UPWARD, INVOICELINE_W_TOKEN,
+            INVOICELINE_W_OWNER) in the scopes claim, or, while the client can access
+            the data it is forbidden from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Deletes an individual invoiceline.
+      tags:
+      - /v2/policy
+    get:
+      operationId: getInvoiceLine
+      parameters:
+      - description: The invoiceline ID.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultInvoiceLine'
+          description: A SuccessResult containing the invoiceline.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (INVOICELINE_R, INVOICELINE_R_TENANT, INVOICELINE_R_UPWARD, INVOICELINE_R_TOKEN,
+            INVOICELINE_R_OWNER) in the scopes claim, or, while the client can access
+            the data it is forbidden from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Gets an individual invoiceline.
+      tags:
+      - /v2/policy
+    put:
+      operationId: updateInvoiceLine
+      parameters:
+      - description: The invoiceline ID.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvoiceLineUpdateModel'
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultInvoiceLine'
+          description: A SuccessResult containing the updated invoiceline.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (INVOICELINE_W, INVOICELINE_W_TENANT, INVOICELINE_W_UPWARD, INVOICELINE_W_TOKEN,
+            INVOICELINE_W_OWNER) in the scopes claim, or, while the client can access
+            the data it is forbidden from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Updates an individual invoiceline.
+      tags:
+      - /v2/policy
+      x-codegen-request-body-name: InvoiceLineUpdateModel
+  /v2/policy/invoiceline/{id}/owner:
+    put:
+      operationId: setInvoiceLineOwner
+      parameters:
+      - description: The invoiceline ID.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetInvoiceLineOwnerModel'
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultInvoiceLine'
+          description: A SuccessResult containing the updated invoiceline.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (INVOICELINE_W, INVOICELINE_W_TENANT, INVOICELINE_W_UPWARD, INVOICELINE_W_TOKEN,
+            INVOICELINE_W_OWNER) in the scopes claim, or, while the client can access
+            the data it is forbidden from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Changes the owner of the invoiceline.
+      tags:
+      - /v2/policy
+      x-codegen-request-body-name: SetInvoiceLineOwnerModel
+  /v2/policy/invoiceline/invoiceid/{invoiceid}:
+    get:
+      operationId: getInvoiceLinesByInvoiceId
+      parameters:
+      - description: requested offset in requested collection
+        in: query
+        name: offset
+        schema:
+          type: integer
+      - description: limit of results in requested collection
+        in: query
+        name: limit
+        schema:
+          type: integer
+      - in: query
+        name: sort
+        schema:
+          type: string
+      - in: query
+        name: filter
+        schema:
+          type: string
+      - description: The invoiceId of the invoiceline.
+        in: path
+        name: invoiceid
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultListInvoiceLine'
+          description: A SuccessResult containing the list of InvoiceLines the User
+            has access to with the specified invoiceid.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (INVOICELINE_R, INVOICELINE_R_TENANT, INVOICELINE_R_UPWARD, INVOICELINE_R_TOKEN,
+            INVOICELINE_R_OWNER) in the scopes claim, or, while the client can access
+            the data it is forbidden from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Gets all invoicelines visible to the logged in user with the specified
+        invoiceid.
+      tags:
+      - /v2/policy
+  /v2/policy/invoiceline/policyid/{policyid}:
+    get:
+      operationId: getInvoiceLinesByPolicyId
+      parameters:
+      - description: requested offset in requested collection
+        in: query
+        name: offset
+        schema:
+          type: integer
+      - description: limit of results in requested collection
+        in: query
+        name: limit
+        schema:
+          type: integer
+      - in: query
+        name: sort
+        schema:
+          type: string
+      - in: query
+        name: filter
+        schema:
+          type: string
+      - description: The policyId of the invoiceline.
+        in: path
+        name: policyid
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultListInvoiceLine'
+          description: A SuccessResult containing the list of InvoiceLines the User
+            has access to with the specified policyid.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (INVOICELINE_R, INVOICELINE_R_TENANT, INVOICELINE_R_UPWARD, INVOICELINE_R_TOKEN,
+            INVOICELINE_R_OWNER) in the scopes claim, or, while the client can access
+            the data it is forbidden from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Gets all invoicelines visible to the logged in user with the specified
+        policyid.
+      tags:
+      - /v2/policy
+  /v2/policy/invoiceline/policyholderid/{policyholderid}:
+    get:
+      operationId: getInvoiceLinesByPolicyHolderId
+      parameters:
+      - description: requested offset in requested collection
+        in: query
+        name: offset
+        schema:
+          type: integer
+      - description: limit of results in requested collection
+        in: query
+        name: limit
+        schema:
+          type: integer
+      - in: query
+        name: sort
+        schema:
+          type: string
+      - in: query
+        name: filter
+        schema:
+          type: string
+      - description: The policyHolderId of the invoiceline.
+        in: path
+        name: policyholderid
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultListInvoiceLine'
+          description: A SuccessResult containing the list of InvoiceLines the User
+            has access to with the specified policyholderid.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (INVOICELINE_R, INVOICELINE_R_TENANT, INVOICELINE_R_UPWARD, INVOICELINE_R_TOKEN,
+            INVOICELINE_R_OWNER) in the scopes claim, or, while the client can access
+            the data it is forbidden from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Gets all invoicelines visible to the logged in user with the specified
+        policyholderid.
+      tags:
+      - /v2/policy
+  /v2/policy/paymentattempt:
+    get:
+      operationId: getAllPaymentAttempts
+      parameters:
+      - description: requested offset in requested collection
+        in: query
+        name: offset
+        schema:
+          type: integer
+      - description: limit of results in requested collection
+        in: query
+        name: limit
+        schema:
+          type: integer
+      - in: query
+        name: sort
+        schema:
+          type: string
+      - in: query
+        name: filter
+        schema:
+          type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultListPaymentAttempt'
+          description: A SuccessResult containing the list of PaymentAttempts the
+            User has access to.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (PAYMENTATTEMPT_R, PAYMENTATTEMPT_R_TENANT, PAYMENTATTEMPT_R_UPWARD, PAYMENTATTEMPT_R_TOKEN,
+            PAYMENTATTEMPT_R_OWNER) in the scopes claim, or, while the client can
+            access the data it is forbidden from executing the requested action on
+            it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Gets all paymentattempts visible to the logged in user.
+      tags:
+      - /v2/policy
+    post:
+      operationId: createPaymentAttempt
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentAttemptCreateModel'
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultPaymentAttempt'
+          description: A SuccessResult containing the created paymentattempt.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (PAYMENTATTEMPT_W, PAYMENTATTEMPT_W_TENANT, PAYMENTATTEMPT_W_UPWARD, PAYMENTATTEMPT_W_TOKEN,
+            PAYMENTATTEMPT_W_OWNER) in the scopes claim, or, while the client can
+            access the data it is forbidden from executing the requested action on
+            it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Creates an individual paymentattempt.
+      tags:
+      - /v2/policy
+      x-codegen-request-body-name: PaymentAttemptCreateModel
+  /v2/policy/paymentattempt/{id}:
+    delete:
+      operationId: deletePaymentAttempt
+      parameters:
+      - description: The paymentattempt ID.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultPaymentAttempt'
+          description: A SuccessResult containing the deleted paymentattempt.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (PAYMENTATTEMPT_W, PAYMENTATTEMPT_W_TENANT, PAYMENTATTEMPT_W_UPWARD, PAYMENTATTEMPT_W_TOKEN,
+            PAYMENTATTEMPT_W_OWNER) in the scopes claim, or, while the client can
+            access the data it is forbidden from executing the requested action on
+            it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Deletes an individual paymentattempt.
+      tags:
+      - /v2/policy
+    get:
+      operationId: getPaymentAttempt
+      parameters:
+      - description: The paymentattempt ID.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultPaymentAttempt'
+          description: A SuccessResult containing the paymentattempt.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (PAYMENTATTEMPT_R, PAYMENTATTEMPT_R_TENANT, PAYMENTATTEMPT_R_UPWARD, PAYMENTATTEMPT_R_TOKEN,
+            PAYMENTATTEMPT_R_OWNER) in the scopes claim, or, while the client can
+            access the data it is forbidden from executing the requested action on
+            it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Gets an individual paymentattempt.
+      tags:
+      - /v2/policy
+    put:
+      operationId: updatePaymentAttempt
+      parameters:
+      - description: The paymentattempt ID.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentAttemptUpdateModel'
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultPaymentAttempt'
+          description: A SuccessResult containing the updated paymentattempt.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (PAYMENTATTEMPT_W, PAYMENTATTEMPT_W_TENANT, PAYMENTATTEMPT_W_UPWARD, PAYMENTATTEMPT_W_TOKEN,
+            PAYMENTATTEMPT_W_OWNER) in the scopes claim, or, while the client can
+            access the data it is forbidden from executing the requested action on
+            it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Updates an individual paymentattempt.
+      tags:
+      - /v2/policy
+      x-codegen-request-body-name: PaymentAttemptUpdateModel
+  /v2/policy/paymentattempt/invoiceid/{invoiceid}:
+    get:
+      operationId: getPaymentAttemptsByInvoiceId
+      parameters:
+      - description: requested offset in requested collection
+        in: query
+        name: offset
+        schema:
+          type: integer
+      - description: limit of results in requested collection
+        in: query
+        name: limit
+        schema:
+          type: integer
+      - in: query
+        name: sort
+        schema:
+          type: string
+      - in: query
+        name: filter
+        schema:
+          type: string
+      - description: The invoiceId of the paymentattempt.
+        in: path
+        name: invoiceid
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultListPaymentAttempt'
+          description: A SuccessResult containing the list of PaymentAttempts the
+            User has access to with the specified invoiceid.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (PAYMENTATTEMPT_R, PAYMENTATTEMPT_R_TENANT, PAYMENTATTEMPT_R_UPWARD, PAYMENTATTEMPT_R_TOKEN,
+            PAYMENTATTEMPT_R_OWNER) in the scopes claim, or, while the client can
+            access the data it is forbidden from executing the requested action on
+            it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Gets all paymentattempts visible to the logged in user with the specified
+        invoiceid.
+      tags:
+      - /v2/policy
+  /v2/policy/renewal-link:
+    post:
+      operationId: createRenewalLink
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RenewalLinkModel'
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResultRenewalLinkResponseModel'
+          description: A SuccessResult containing the created proposal ID for the
+            given renewal.
+        401:
+          content: {}
+          description: Client did not send a valid JWT.
+        403:
+          content: {}
+          description: Client sent a JWT that does not have one of the required roles
+            (POLICY_RENEW) in the scopes claim, or, while the client can access the
+            data it is forbidden from executing the requested action on it.
+        404:
+          content: {}
+          description: If the requested resource or route was not found.
+      summary: Takes an existing proposal and creates a policy holder and renewal
+        link for the first quote in the proposal.
+      tags:
+      - /v2/policy
+      x-codegen-request-body-name: RenewalLinkModel
+components:
+  schemas:
+    RenewalLinkModel:
+      example:
+        productIdToPreviousDetailsMap:
+          key: '{}'
+        proposalId: 0749e28e-fe7f-41b2-b553-70bc313c0049
+      properties:
+        productIdToPreviousDetailsMap:
+          additionalProperties:
+            properties: {}
+            type: object
+          description: Description not provided.
+          type: object
+        proposalId:
+          description: Description not provided.
+          example: 0749e28e-fe7f-41b2-b553-70bc313c0049
+          format: uuid
+          type: string
+      required:
+      - productIdToPreviousDetailsMap
+      - proposalId
+      type: object
+    RenewalLinkResponseModel:
+      example:
+        policyHolderId: 14db57e2-54e6-4861-97fd-566210b6cfb6
+        renewalLink: https://insurance.com/renewal?proposalId=dff6baba-d416-4056-94b2-f3c455f3d649
+        proposalId: dff6baba-d416-4056-94b2-f3c455f3d649
+      properties:
+        policyHolderId:
+          description: Description not provided.
+          example: 14db57e2-54e6-4861-97fd-566210b6cfb6
+          format: uuid
+          type: string
+        proposalId:
+          description: Description not provided.
+          example: dff6baba-d416-4056-94b2-f3c455f3d649
+          format: uuid
+          type: string
+        renewalLink:
+          description: Description not provided.
+          example: https://insurance.com/renewal?proposalId=dff6baba-d416-4056-94b2-f3c455f3d649
+          type: string
+      required:
+      - policyHolderId
+      - proposalId
+      - renewalLink
+      type: object
+    Metadata:
+      example:
+        processingTime: 9223372036854775807
+        transactionId: 1e6cb243-ec7d-4346-ba1e-a66246ad54d4
+      properties:
+        processingTime:
+          description: The time in milliseconds the request took on the backend.
+          example: 9223372036854775807
+          format: int64
+          type: integer
+        transactionId:
+          description: A UUID that identifies the request.
+          example: 1e6cb243-ec7d-4346-ba1e-a66246ad54d4
+          format: uuid
+          type: string
+      required:
+      - processingTime
+      - transactionId
+      type: object
+    SuccessResultRenewalLinkResponseModel:
+      example:
+        data:
+          policyHolderId: 14db57e2-54e6-4861-97fd-566210b6cfb6
+          renewalLink: https://insurance.com/renewal?proposalId=dff6baba-d416-4056-94b2-f3c455f3d649
+          proposalId: dff6baba-d416-4056-94b2-f3c455f3d649
+        meta:
+          processingTime: 9223372036854775807
+          transactionId: 1e6cb243-ec7d-4346-ba1e-a66246ad54d4
+      properties:
+        data:
+          $ref: '#/components/schemas/RenewalLinkResponseModel'
+        meta:
+          $ref: '#/components/schemas/Metadata'
+      required:
+      - data
+      - meta
+      type: object
+    PaymentAttemptModel:
+      example:
+        sequence: 0
+        sfTenantId: 6
+        sfVersion: 1
+        sfPath: sfPath
+        sfCreated: 2018-01-01 12:00:00
+        invoiceId: 095967a4-3401-4593-94ce-880d29bff652
+        id: 6318062d-7d4d-4a89-a060-6d07c50f8020
+        sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        sfUpdated: 2018-01-01 12:00:00
+        providerResponse: '{ "receiptId":"12345", "responseCode":34 }'
+        sfAccountId: 0
+        status: INITIATED
+      properties:
+        invoiceId:
+          description: Description not provided.
+          example: 095967a4-3401-4593-94ce-880d29bff652
+          format: uuid
+          type: string
+        providerResponse:
+          description: Description not provided.
+          example: '{ "receiptId":"12345", "responseCode":34 }'
+          type: string
+        sequence:
+          description: Description not provided.
+          example: 0
+          format: int32
+          type: integer
+        status:
+          description: Description not provided.
+          enum:
+          - INITIATED
+          - SUCCESSFUL
+          - FAILED
+          type: string
+        id:
+          description: The id of the entity.
+          example: 6318062d-7d4d-4a89-a060-6d07c50f8020
+          format: uuid
+          type: string
+        sfAccountId:
+          description: ID of account in IAM hierarchy.
+          format: int32
+          type: integer
+        sfCreated:
+          description: The timestamp of when the entity was created.
+          example: 2018-01-01 12:00:00
+          type: string
+        sfOwnerId:
+          description: User ID of entity owner.
+          format: uuid
+          type: string
+        sfPath:
+          description: Path of entity in IAM hierarchy.
+          type: string
+        sfTenantId:
+          description: ID of tenant that entity belongs to.
+          format: int32
+          type: integer
+        sfUpdated:
+          description: The timestamp of when the entity was last updated.
+          example: 2018-01-01 12:00:00
+          type: string
+        sfVersion:
+          description: The current version of the entity.
+          example: 1
+          format: int32
+          type: integer
+      required:
+      - id
+      - invoiceId
+      - providerResponse
+      - sequence
+      - sfCreated
+      - sfUpdated
+      - sfVersion
+      - status
+      type: object
+    SuccessResultListPaymentAttempt:
+      example:
+        data:
+        - sequence: 0
+          sfTenantId: 6
+          sfVersion: 1
+          sfPath: sfPath
+          sfCreated: 2018-01-01 12:00:00
+          invoiceId: 095967a4-3401-4593-94ce-880d29bff652
+          id: 6318062d-7d4d-4a89-a060-6d07c50f8020
+          sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          sfUpdated: 2018-01-01 12:00:00
+          providerResponse: '{ "receiptId":"12345", "responseCode":34 }'
+          sfAccountId: 0
+          status: INITIATED
+        - sequence: 0
+          sfTenantId: 6
+          sfVersion: 1
+          sfPath: sfPath
+          sfCreated: 2018-01-01 12:00:00
+          invoiceId: 095967a4-3401-4593-94ce-880d29bff652
+          id: 6318062d-7d4d-4a89-a060-6d07c50f8020
+          sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          sfUpdated: 2018-01-01 12:00:00
+          providerResponse: '{ "receiptId":"12345", "responseCode":34 }'
+          sfAccountId: 0
+          status: INITIATED
+        meta:
+          processingTime: 9223372036854775807
+          transactionId: 1e6cb243-ec7d-4346-ba1e-a66246ad54d4
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/PaymentAttemptModel'
+          type: array
+        meta:
+          $ref: '#/components/schemas/Metadata'
+      required:
+      - data
+      - meta
+      type: object
+    SuccessResultPaymentAttempt:
+      example:
+        data:
+          sequence: 0
+          sfTenantId: 6
+          sfVersion: 1
+          sfPath: sfPath
+          sfCreated: 2018-01-01 12:00:00
+          invoiceId: 095967a4-3401-4593-94ce-880d29bff652
+          id: 6318062d-7d4d-4a89-a060-6d07c50f8020
+          sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          sfUpdated: 2018-01-01 12:00:00
+          providerResponse: '{ "receiptId":"12345", "responseCode":34 }'
+          sfAccountId: 0
+          status: INITIATED
+        meta:
+          processingTime: 9223372036854775807
+          transactionId: 1e6cb243-ec7d-4346-ba1e-a66246ad54d4
+      properties:
+        data:
+          $ref: '#/components/schemas/PaymentAttemptModel'
+        meta:
+          $ref: '#/components/schemas/Metadata'
+      required:
+      - data
+      - meta
+      type: object
+    PaymentAttemptUpdateModel:
+      example:
+        sequence: 0
+        sfVersion: 1
+        invoiceId: 095967a4-3401-4593-94ce-880d29bff652
+        providerResponse: '{ "receiptId":"12345", "responseCode":34 }'
+        status: INITIATED
+      properties:
+        invoiceId:
+          description: Description not provided.
+          example: 095967a4-3401-4593-94ce-880d29bff652
+          format: uuid
+          type: string
+        providerResponse:
+          description: Description not provided.
+          example: '{ "receiptId":"12345", "responseCode":34 }'
+          type: string
+        sequence:
+          description: Description not provided.
+          example: 0
+          format: int32
+          type: integer
+        sfVersion:
+          description: Description not provided.
+          example: 1
+          format: int32
+          type: integer
+        status:
+          description: Description not provided.
+          enum:
+          - INITIATED
+          - SUCCESSFUL
+          - FAILED
+          type: string
+      required:
+      - invoiceId
+      - providerResponse
+      - sequence
+      - sfVersion
+      - status
+      type: object
+    PaymentAttemptCreateModel:
+      example:
+        sequence: 0
+        invoiceId: 095967a4-3401-4593-94ce-880d29bff652
+        providerResponse: '{ "receiptId":"12345", "responseCode":34 }'
+        sfAccountId: 1
+        status: INITIATED
+      properties:
+        invoiceId:
+          description: Description not provided.
+          example: 095967a4-3401-4593-94ce-880d29bff652
+          format: uuid
+          type: string
+        providerResponse:
+          description: Description not provided.
+          example: '{ "receiptId":"12345", "responseCode":34 }'
+          type: string
+        sequence:
+          description: Description not provided.
+          example: 0
+          format: int32
+          type: integer
+        sfAccountId:
+          description: Description not provided.
+          example: 1
+          format: int32
+          type: integer
+        status:
+          description: Description not provided.
+          enum:
+          - INITIATED
+          - SUCCESSFUL
+          - FAILED
+          type: string
+      required:
+      - invoiceId
+      - providerResponse
+      - sequence
+      - sfAccountId
+      - status
+      type: object
+    InvoiceLineModel:
+      example:
+        entryType: CREDIT
+        sfTenantId: 6
+        amount: 45.34
+        policyHolderId: 0fe4c38d-e13a-42e5-87f4-084fd81e342f
+        sfVersion: 1
+        sfCreated: 2018-01-01 12:00:00
+        sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        policyId: 2b5ca6da-325b-44e9-a6ff-46ac17f21bdc
+        sfPath: sfPath
+        details: DHLTH-CGL-0000000085 - Commercial General Insurance
+        invoiceId: 6318062d-7d4d-4a89-a060-6d07c50f8020
+        id: 6318062d-7d4d-4a89-a060-6d07c50f8020
+        taxAmount: 4.53
+        sfUpdated: 2018-01-01 12:00:00
+        sfAccountId: 0
+      properties:
+        amount:
+          description: Description not provided.
+          example: 45.34
+          type: number
+        details:
+          description: Description not provided.
+          example: DHLTH-CGL-0000000085 - Commercial General Insurance
+          type: string
+        entryType:
+          description: Description not provided.
+          enum:
+          - CREDIT
+          - DEBIT
+          type: string
+        invoiceId:
+          description: Description not provided.
+          example: 6318062d-7d4d-4a89-a060-6d07c50f8020
+          format: uuid
+          type: string
+        policyHolderId:
+          description: Description not provided.
+          example: 0fe4c38d-e13a-42e5-87f4-084fd81e342f
+          format: uuid
+          type: string
+        policyId:
+          description: Description not provided.
+          example: 2b5ca6da-325b-44e9-a6ff-46ac17f21bdc
+          format: uuid
+          type: string
+        taxAmount:
+          description: Description not provided.
+          example: 4.53
+          type: number
+        id:
+          description: The id of the entity.
+          example: 6318062d-7d4d-4a89-a060-6d07c50f8020
+          format: uuid
+          type: string
+        sfAccountId:
+          description: ID of account in IAM hierarchy.
+          format: int32
+          type: integer
+        sfCreated:
+          description: The timestamp of when the entity was created.
+          example: 2018-01-01 12:00:00
+          type: string
+        sfOwnerId:
+          description: User ID of entity owner.
+          format: uuid
+          type: string
+        sfPath:
+          description: Path of entity in IAM hierarchy.
+          type: string
+        sfTenantId:
+          description: ID of tenant that entity belongs to.
+          format: int32
+          type: integer
+        sfUpdated:
+          description: The timestamp of when the entity was last updated.
+          example: 2018-01-01 12:00:00
+          type: string
+        sfVersion:
+          description: The current version of the entity.
+          example: 1
+          format: int32
+          type: integer
+      required:
+      - amount
+      - details
+      - entryType
+      - id
+      - invoiceId
+      - policyHolderId
+      - policyId
+      - sfCreated
+      - sfUpdated
+      - sfVersion
+      - taxAmount
+      type: object
+    SuccessResultListInvoiceLine:
+      example:
+        data:
+        - entryType: CREDIT
+          sfTenantId: 6
+          amount: 45.34
+          policyHolderId: 0fe4c38d-e13a-42e5-87f4-084fd81e342f
+          sfVersion: 1
+          sfCreated: 2018-01-01 12:00:00
+          sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          policyId: 2b5ca6da-325b-44e9-a6ff-46ac17f21bdc
+          sfPath: sfPath
+          details: DHLTH-CGL-0000000085 - Commercial General Insurance
+          invoiceId: 6318062d-7d4d-4a89-a060-6d07c50f8020
+          id: 6318062d-7d4d-4a89-a060-6d07c50f8020
+          taxAmount: 4.53
+          sfUpdated: 2018-01-01 12:00:00
+          sfAccountId: 0
+        - entryType: CREDIT
+          sfTenantId: 6
+          amount: 45.34
+          policyHolderId: 0fe4c38d-e13a-42e5-87f4-084fd81e342f
+          sfVersion: 1
+          sfCreated: 2018-01-01 12:00:00
+          sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          policyId: 2b5ca6da-325b-44e9-a6ff-46ac17f21bdc
+          sfPath: sfPath
+          details: DHLTH-CGL-0000000085 - Commercial General Insurance
+          invoiceId: 6318062d-7d4d-4a89-a060-6d07c50f8020
+          id: 6318062d-7d4d-4a89-a060-6d07c50f8020
+          taxAmount: 4.53
+          sfUpdated: 2018-01-01 12:00:00
+          sfAccountId: 0
+        meta:
+          processingTime: 9223372036854775807
+          transactionId: 1e6cb243-ec7d-4346-ba1e-a66246ad54d4
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/InvoiceLineModel'
+          type: array
+        meta:
+          $ref: '#/components/schemas/Metadata'
+      required:
+      - data
+      - meta
+      type: object
+    SetInvoiceLineOwnerModel:
+      example:
+        ownerId: 463461a2-4e14-4bc0-b8ed-f67e935c53c7
+      properties:
+        ownerId:
+          description: Description not provided.
+          example: 463461a2-4e14-4bc0-b8ed-f67e935c53c7
+          format: uuid
+          type: string
+      required:
+      - ownerId
+      type: object
+    SuccessResultInvoiceLine:
+      example:
+        data:
+          entryType: CREDIT
+          sfTenantId: 6
+          amount: 45.34
+          policyHolderId: 0fe4c38d-e13a-42e5-87f4-084fd81e342f
+          sfVersion: 1
+          sfCreated: 2018-01-01 12:00:00
+          sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          policyId: 2b5ca6da-325b-44e9-a6ff-46ac17f21bdc
+          sfPath: sfPath
+          details: DHLTH-CGL-0000000085 - Commercial General Insurance
+          invoiceId: 6318062d-7d4d-4a89-a060-6d07c50f8020
+          id: 6318062d-7d4d-4a89-a060-6d07c50f8020
+          taxAmount: 4.53
+          sfUpdated: 2018-01-01 12:00:00
+          sfAccountId: 0
+        meta:
+          processingTime: 9223372036854775807
+          transactionId: 1e6cb243-ec7d-4346-ba1e-a66246ad54d4
+      properties:
+        data:
+          $ref: '#/components/schemas/InvoiceLineModel'
+        meta:
+          $ref: '#/components/schemas/Metadata'
+      required:
+      - data
+      - meta
+      type: object
+    InvoiceLineUpdateModel:
+      example:
+        entryType: CREDIT
+        amount: 45.34
+        policyHolderId: 0fe4c38d-e13a-42e5-87f4-084fd81e342f
+        policyId: 2b5ca6da-325b-44e9-a6ff-46ac17f21bdc
+        sfVersion: 1
+        details: DHLTH-CGL-0000000085 - Commercial General Insurance
+        invoiceId: 6318062d-7d4d-4a89-a060-6d07c50f8020
+        taxAmount: 4.53
+      properties:
+        amount:
+          description: Description not provided.
+          example: 45.34
+          type: number
+        details:
+          description: Description not provided.
+          example: DHLTH-CGL-0000000085 - Commercial General Insurance
+          type: string
+        entryType:
+          description: Description not provided.
+          enum:
+          - CREDIT
+          - DEBIT
+          type: string
+        invoiceId:
+          description: Description not provided.
+          example: 6318062d-7d4d-4a89-a060-6d07c50f8020
+          format: uuid
+          type: string
+        policyHolderId:
+          description: Description not provided.
+          example: 0fe4c38d-e13a-42e5-87f4-084fd81e342f
+          format: uuid
+          type: string
+        policyId:
+          description: Description not provided.
+          example: 2b5ca6da-325b-44e9-a6ff-46ac17f21bdc
+          format: uuid
+          type: string
+        sfVersion:
+          description: Description not provided.
+          example: 1
+          format: int32
+          type: integer
+        taxAmount:
+          description: Description not provided.
+          example: 4.53
+          type: number
+      required:
+      - amount
+      - details
+      - entryType
+      - invoiceId
+      - policyHolderId
+      - policyId
+      - sfVersion
+      - taxAmount
+      type: object
+    InvoiceLineCreateModel:
+      example:
+        entryType: CREDIT
+        amount: 45.34
+        policyHolderId: 0fe4c38d-e13a-42e5-87f4-084fd81e342f
+        policyId: 2b5ca6da-325b-44e9-a6ff-46ac17f21bdc
+        details: DHLTH-CGL-0000000085 - Commercial General Insurance
+        invoiceId: 6318062d-7d4d-4a89-a060-6d07c50f8020
+        taxAmount: 4.53
+        sfAccountId: 1
+      properties:
+        amount:
+          description: Description not provided.
+          example: 45.34
+          type: number
+        details:
+          description: Description not provided.
+          example: DHLTH-CGL-0000000085 - Commercial General Insurance
+          type: string
+        entryType:
+          description: Description not provided.
+          enum:
+          - CREDIT
+          - DEBIT
+          type: string
+        invoiceId:
+          description: Description not provided.
+          example: 6318062d-7d4d-4a89-a060-6d07c50f8020
+          format: uuid
+          type: string
+        policyHolderId:
+          description: Description not provided.
+          example: 0fe4c38d-e13a-42e5-87f4-084fd81e342f
+          format: uuid
+          type: string
+        policyId:
+          description: Description not provided.
+          example: 2b5ca6da-325b-44e9-a6ff-46ac17f21bdc
+          format: uuid
+          type: string
+        sfAccountId:
+          description: Description not provided.
+          example: 1
+          format: int32
+          type: integer
+        taxAmount:
+          description: Description not provided.
+          example: 4.53
+          type: number
+      required:
+      - amount
+      - details
+      - entryType
+      - invoiceId
+      - policyHolderId
+      - policyId
+      - sfAccountId
+      - taxAmount
+      type: object
+    InvoiceModel:
+      example:
+        sfTenantId: 6
+        policyHolderId: 9fb399a8-0fdc-4e17-8098-738db387c441
+        sfVersion: 1
+        paymentReference: R123123123123
+        sfCreated: 2018-01-01 12:00:00
+        sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        totalAmount: 4.53
+        sfPath: sfPath
+        continuationLink: https://example.com/landingpage?params
+        id: 6318062d-7d4d-4a89-a060-6d07c50f8020
+        sfUpdated: 2018-01-01 12:00:00
+        sfAccountId: 0
+        status: CREATED
+      properties:
+        continuationLink:
+          description: Description not provided.
+          example: https://example.com/landingpage?params
+          type: string
+        paymentReference:
+          description: Description not provided.
+          example: R123123123123
+          type: string
+        policyHolderId:
+          description: Description not provided.
+          example: 9fb399a8-0fdc-4e17-8098-738db387c441
+          format: uuid
+          type: string
+        status:
+          description: Description not provided.
+          example: CREATED
+          type: string
+        totalAmount:
+          description: Description not provided.
+          example: 4.53
+          type: number
+        id:
+          description: The id of the entity.
+          example: 6318062d-7d4d-4a89-a060-6d07c50f8020
+          format: uuid
+          type: string
+        sfAccountId:
+          description: ID of account in IAM hierarchy.
+          format: int32
+          type: integer
+        sfCreated:
+          description: The timestamp of when the entity was created.
+          example: 2018-01-01 12:00:00
+          type: string
+        sfOwnerId:
+          description: User ID of entity owner.
+          format: uuid
+          type: string
+        sfPath:
+          description: Path of entity in IAM hierarchy.
+          type: string
+        sfTenantId:
+          description: ID of tenant that entity belongs to.
+          format: int32
+          type: integer
+        sfUpdated:
+          description: The timestamp of when the entity was last updated.
+          example: 2018-01-01 12:00:00
+          type: string
+        sfVersion:
+          description: The current version of the entity.
+          example: 1
+          format: int32
+          type: integer
+      required:
+      - continuationLink
+      - id
+      - paymentReference
+      - policyHolderId
+      - sfCreated
+      - sfUpdated
+      - sfVersion
+      - status
+      - totalAmount
+      type: object
+    SuccessResultListInvoice:
+      example:
+        data:
+        - sfTenantId: 6
+          policyHolderId: 9fb399a8-0fdc-4e17-8098-738db387c441
+          sfVersion: 1
+          paymentReference: R123123123123
+          sfCreated: 2018-01-01 12:00:00
+          sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          totalAmount: 4.53
+          sfPath: sfPath
+          continuationLink: https://example.com/landingpage?params
+          id: 6318062d-7d4d-4a89-a060-6d07c50f8020
+          sfUpdated: 2018-01-01 12:00:00
+          sfAccountId: 0
+          status: CREATED
+        - sfTenantId: 6
+          policyHolderId: 9fb399a8-0fdc-4e17-8098-738db387c441
+          sfVersion: 1
+          paymentReference: R123123123123
+          sfCreated: 2018-01-01 12:00:00
+          sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          totalAmount: 4.53
+          sfPath: sfPath
+          continuationLink: https://example.com/landingpage?params
+          id: 6318062d-7d4d-4a89-a060-6d07c50f8020
+          sfUpdated: 2018-01-01 12:00:00
+          sfAccountId: 0
+          status: CREATED
+        meta:
+          processingTime: 9223372036854775807
+          transactionId: 1e6cb243-ec7d-4346-ba1e-a66246ad54d4
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/InvoiceModel'
+          type: array
+        meta:
+          $ref: '#/components/schemas/Metadata'
+      required:
+      - data
+      - meta
+      type: object
+    ExceptionModel:
+      properties:
+        code:
+          description: Description not provided.
+          example: 409
+          format: int32
+          type: integer
+        message:
+          description: Description not provided.
+          example: Invoice 60467465-deed-41a7-bdc9-7ba905b89ab8 has already been paid.
+          type: string
+        type:
+          description: Description not provided.
+          enum:
+          - GENERAL
+          - HTTP
+          - SECURITY
+          - PARAMETER
+          - DOMAIN
+          - INFRA
+          - CONFIG
+          - INTEGRATION
+          - SYSTEM
+          type: string
+      required:
+      - code
+      - message
+      - type
+      type: object
+    ErrorResultInvoicePaid:
+      properties:
+        error:
+          $ref: '#/components/schemas/ExceptionModel'
+        meta:
+          $ref: '#/components/schemas/Metadata'
+      required:
+      - error
+      - meta
+      type: object
+    SuccessResultInvoice:
+      example:
+        data:
+          sfTenantId: 6
+          policyHolderId: 9fb399a8-0fdc-4e17-8098-738db387c441
+          sfVersion: 1
+          paymentReference: R123123123123
+          sfCreated: 2018-01-01 12:00:00
+          sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          totalAmount: 4.53
+          sfPath: sfPath
+          continuationLink: https://example.com/landingpage?params
+          id: 6318062d-7d4d-4a89-a060-6d07c50f8020
+          sfUpdated: 2018-01-01 12:00:00
+          sfAccountId: 0
+          status: CREATED
+        meta:
+          processingTime: 9223372036854775807
+          transactionId: 1e6cb243-ec7d-4346-ba1e-a66246ad54d4
+      properties:
+        data:
+          $ref: '#/components/schemas/InvoiceModel'
+        meta:
+          $ref: '#/components/schemas/Metadata'
+      required:
+      - data
+      - meta
+      type: object
+    SetInvoiceOwnerModel:
+      example:
+        ownerId: 463461a2-4e14-4bc0-b8ed-f67e935c53c7
+      properties:
+        ownerId:
+          description: Description not provided.
+          example: 463461a2-4e14-4bc0-b8ed-f67e935c53c7
+          format: uuid
+          type: string
+      required:
+      - ownerId
+      type: object
+    InvoiceUpdateModel:
+      example:
+        totalAmount: 4.53
+        policyHolderId: 9fb399a8-0fdc-4e17-8098-738db387c441
+        sfVersion: 1
+        paymentReference: R123123123123
+        continuationLink: https://example.com/landingpage?params
+        status: CREATED
+      properties:
+        continuationLink:
+          description: Description not provided.
+          example: https://example.com/landingpage?params
+          type: string
+        paymentReference:
+          description: Description not provided.
+          example: R123123123123
+          type: string
+        policyHolderId:
+          description: Description not provided.
+          example: 9fb399a8-0fdc-4e17-8098-738db387c441
+          format: uuid
+          type: string
+        sfVersion:
+          description: Description not provided.
+          example: 1
+          format: int32
+          type: integer
+        status:
+          description: Description not provided.
+          example: CREATED
+          type: string
+        totalAmount:
+          description: Description not provided.
+          example: 4.53
+          type: number
+      required:
+      - continuationLink
+      - paymentReference
+      - policyHolderId
+      - sfVersion
+      - status
+      - totalAmount
+      type: object
+    InvoiceCreateModel:
+      example:
+        totalAmount: 4.53
+        policyHolderId: 9fb399a8-0fdc-4e17-8098-738db387c441
+        paymentReference: R123123123123
+        continuationLink: https://example.com/landingpage?params
+        sfAccountId: 1
+        status: CREATED
+      properties:
+        continuationLink:
+          description: Description not provided.
+          example: https://example.com/landingpage?params
+          type: string
+        paymentReference:
+          description: Description not provided.
+          example: R123123123123
+          type: string
+        policyHolderId:
+          description: Description not provided.
+          example: 9fb399a8-0fdc-4e17-8098-738db387c441
+          format: uuid
+          type: string
+        sfAccountId:
+          description: Description not provided.
+          example: 1
+          format: int32
+          type: integer
+        status:
+          description: Description not provided.
+          example: CREATED
+          type: string
+        totalAmount:
+          description: Description not provided.
+          example: 4.53
+          type: number
+      required:
+      - continuationLink
+      - paymentReference
+      - policyHolderId
+      - sfAccountId
+      - status
+      - totalAmount
+      type: object
+    SetPolicyBundleOwnerModel:
+      example:
+        ownerId: 463461a2-4e14-4bc0-b8ed-f67e935c53c7
+      properties:
+        ownerId:
+          description: Description not provided.
+          example: 463461a2-4e14-4bc0-b8ed-f67e935c53c7
+          format: uuid
+          type: string
+      required:
+      - ownerId
+      type: object
+    PolicyBundleModel:
+      example:
+        sfTenantId: 6
+        sfVersion: 1
+        sfPath: sfPath
+        sfCreated: 2018-06-28 12:00:00
+        invoiceId: 00000000-0000-0000-0000-000000000000
+        id: 5e2226f0-e02a-43bb-ad53-94e4e75471aa
+        sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        type: NEW
+        sfUpdated: 2018-06-28 12:00:00
+        sfAccountId: 0
+        status: CREATED
+      properties:
+        invoiceId:
+          description: Description not provided.
+          example: 00000000-0000-0000-0000-000000000000
+          format: uuid
+          type: string
+        status:
+          description: Description not provided.
+          example: CREATED
+          type: string
+        type:
+          description: Description not provided.
+          example: NEW
+          type: string
+        id:
+          description: The id of the entity.
+          example: 5e2226f0-e02a-43bb-ad53-94e4e75471aa
+          format: uuid
+          type: string
+        sfAccountId:
+          description: ID of account in IAM hierarchy.
+          format: int32
+          type: integer
+        sfCreated:
+          description: The timestamp of when the entity was created.
+          example: 2018-06-28 12:00:00
+          type: string
+        sfOwnerId:
+          description: User ID of entity owner.
+          format: uuid
+          type: string
+        sfPath:
+          description: Path of entity in IAM hierarchy.
+          type: string
+        sfTenantId:
+          description: ID of tenant that entity belongs to.
+          format: int32
+          type: integer
+        sfUpdated:
+          description: The timestamp of when the entity was last updated.
+          example: 2018-06-28 12:00:00
+          type: string
+        sfVersion:
+          description: The current version of the entity.
+          example: 1
+          format: int32
+          type: integer
+      required:
+      - id
+      - invoiceId
+      - sfCreated
+      - sfUpdated
+      - sfVersion
+      - status
+      - type
+      type: object
+    SuccessResultPolicyBundle:
+      example:
+        data:
+          sfTenantId: 6
+          sfVersion: 1
+          sfPath: sfPath
+          sfCreated: 2018-06-28 12:00:00
+          invoiceId: 00000000-0000-0000-0000-000000000000
+          id: 5e2226f0-e02a-43bb-ad53-94e4e75471aa
+          sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          type: NEW
+          sfUpdated: 2018-06-28 12:00:00
+          sfAccountId: 0
+          status: CREATED
+        meta:
+          processingTime: 9223372036854775807
+          transactionId: 1e6cb243-ec7d-4346-ba1e-a66246ad54d4
+      properties:
+        data:
+          $ref: '#/components/schemas/PolicyBundleModel'
+        meta:
+          $ref: '#/components/schemas/Metadata'
+      required:
+      - data
+      - meta
+      type: object
+    PolicyBundleUpdateModel:
+      example:
+        sfVersion: 1
+        invoiceId: 6318062d-7d4d-4a89-a060-6d07c50f8020
+        type: NEW
+        status: CREATED
+      properties:
+        invoiceId:
+          description: Description not provided.
+          example: 6318062d-7d4d-4a89-a060-6d07c50f8020
+          format: uuid
+          type: string
+        sfVersion:
+          description: Description not provided.
+          example: 1
+          format: int32
+          type: integer
+        status:
+          description: Description not provided.
+          example: CREATED
+          type: string
+        type:
+          description: Description not provided.
+          example: NEW
+          type: string
+      required:
+      - invoiceId
+      - sfVersion
+      - status
+      - type
+      type: object
+    PolicyBundleCreateModel:
+      example:
+        invoiceId: 6318062d-7d4d-4a89-a060-6d07c50f8020
+        type: NEW
+        sfAccountId: 1
+        status: CREATED
+      properties:
+        invoiceId:
+          description: Description not provided.
+          example: 6318062d-7d4d-4a89-a060-6d07c50f8020
+          format: uuid
+          type: string
+        sfAccountId:
+          description: Description not provided.
+          example: 1
+          format: int32
+          type: integer
+        status:
+          description: Description not provided.
+          example: CREATED
+          type: string
+        type:
+          description: Description not provided.
+          example: NEW
+          type: string
+      required:
+      - invoiceId
+      - sfAccountId
+      - status
+      - type
+      type: object
+    SuccessResultListPolicyBundle:
+      example:
+        data:
+        - sfTenantId: 6
+          sfVersion: 1
+          sfPath: sfPath
+          sfCreated: 2018-06-28 12:00:00
+          invoiceId: 00000000-0000-0000-0000-000000000000
+          id: 5e2226f0-e02a-43bb-ad53-94e4e75471aa
+          sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          type: NEW
+          sfUpdated: 2018-06-28 12:00:00
+          sfAccountId: 0
+          status: CREATED
+        - sfTenantId: 6
+          sfVersion: 1
+          sfPath: sfPath
+          sfCreated: 2018-06-28 12:00:00
+          invoiceId: 00000000-0000-0000-0000-000000000000
+          id: 5e2226f0-e02a-43bb-ad53-94e4e75471aa
+          sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          type: NEW
+          sfUpdated: 2018-06-28 12:00:00
+          sfAccountId: 0
+          status: CREATED
+        meta:
+          processingTime: 9223372036854775807
+          transactionId: 1e6cb243-ec7d-4346-ba1e-a66246ad54d4
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/PolicyBundleModel'
+          type: array
+        meta:
+          $ref: '#/components/schemas/Metadata'
+      required:
+      - data
+      - meta
+      type: object
+    PolicyHolderNoteModel:
+      example:
+        note: This is a note
+        sfTenantId: 6
+        policyHolderId: 31374999-a2e4-494e-9c4c-15e8a8b9f8b5
+        createdBy: John Smith
+        sfVersion: 1
+        sfPath: sfPath
+        sfCreated: 2018-01-01 12:00:00
+        id: 6318062d-7d4d-4a89-a060-6d07c50f8020
+        sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        sfUpdated: 2018-01-01 12:00:00
+        sfAccountId: 0
+      properties:
+        createdBy:
+          description: Name or source of the note
+          example: John Smith
+          type: string
+        note:
+          description: The note text
+          example: This is a note
+          type: string
+        policyHolderId:
+          description: Id of policy holder the note is attached to
+          example: 31374999-a2e4-494e-9c4c-15e8a8b9f8b5
+          format: uuid
+          type: string
+        id:
+          description: The id of the entity.
+          example: 6318062d-7d4d-4a89-a060-6d07c50f8020
+          format: uuid
+          type: string
+        sfAccountId:
+          description: ID of account in IAM hierarchy.
+          format: int32
+          type: integer
+        sfCreated:
+          description: The timestamp of when the entity was created.
+          example: 2018-01-01 12:00:00
+          type: string
+        sfOwnerId:
+          description: User ID of entity owner.
+          format: uuid
+          type: string
+        sfPath:
+          description: Path of entity in IAM hierarchy.
+          type: string
+        sfTenantId:
+          description: ID of tenant that entity belongs to.
+          format: int32
+          type: integer
+        sfUpdated:
+          description: The timestamp of when the entity was last updated.
+          example: 2018-01-01 12:00:00
+          type: string
+        sfVersion:
+          description: The current version of the entity.
+          example: 1
+          format: int32
+          type: integer
+      required:
+      - createdBy
+      - id
+      - note
+      - policyHolderId
+      - sfCreated
+      - sfUpdated
+      - sfVersion
+      type: object
+    SuccessResultPolicyHolderNote:
+      example:
+        data:
+          note: This is a note
+          sfTenantId: 6
+          policyHolderId: 31374999-a2e4-494e-9c4c-15e8a8b9f8b5
+          createdBy: John Smith
+          sfVersion: 1
+          sfPath: sfPath
+          sfCreated: 2018-01-01 12:00:00
+          id: 6318062d-7d4d-4a89-a060-6d07c50f8020
+          sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          sfUpdated: 2018-01-01 12:00:00
+          sfAccountId: 0
+        meta:
+          processingTime: 9223372036854775807
+          transactionId: 1e6cb243-ec7d-4346-ba1e-a66246ad54d4
+      properties:
+        data:
+          $ref: '#/components/schemas/PolicyHolderNoteModel'
+        meta:
+          $ref: '#/components/schemas/Metadata'
+      required:
+      - data
+      - meta
+      type: object
+    PolicyHolderNoteUpdateModel:
+      example:
+        note: This is a note
+        policyHolderId: 31374999-a2e4-494e-9c4c-15e8a8b9f8b5
+        createdBy: John Smith
+        sfVersion: 1
+      properties:
+        createdBy:
+          description: Description not provided.
+          example: John Smith
+          type: string
+        note:
+          description: Description not provided.
+          example: This is a note
+          type: string
+        policyHolderId:
+          description: Description not provided.
+          example: 31374999-a2e4-494e-9c4c-15e8a8b9f8b5
+          format: uuid
+          type: string
+        sfVersion:
+          description: Description not provided.
+          example: 1
+          format: int32
+          type: integer
+      required:
+      - createdBy
+      - note
+      - policyHolderId
+      - sfVersion
+      type: object
+    SuccessResultListPolicyHolderNote:
+      example:
+        data:
+        - note: This is a note
+          sfTenantId: 6
+          policyHolderId: 31374999-a2e4-494e-9c4c-15e8a8b9f8b5
+          createdBy: John Smith
+          sfVersion: 1
+          sfPath: sfPath
+          sfCreated: 2018-01-01 12:00:00
+          id: 6318062d-7d4d-4a89-a060-6d07c50f8020
+          sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          sfUpdated: 2018-01-01 12:00:00
+          sfAccountId: 0
+        - note: This is a note
+          sfTenantId: 6
+          policyHolderId: 31374999-a2e4-494e-9c4c-15e8a8b9f8b5
+          createdBy: John Smith
+          sfVersion: 1
+          sfPath: sfPath
+          sfCreated: 2018-01-01 12:00:00
+          id: 6318062d-7d4d-4a89-a060-6d07c50f8020
+          sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          sfUpdated: 2018-01-01 12:00:00
+          sfAccountId: 0
+        meta:
+          processingTime: 9223372036854775807
+          transactionId: 1e6cb243-ec7d-4346-ba1e-a66246ad54d4
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/PolicyHolderNoteModel'
+          type: array
+        meta:
+          $ref: '#/components/schemas/Metadata'
+      required:
+      - data
+      - meta
+      type: object
+    PolicyHolderNoteCreateModel:
+      example:
+        note: This is a note
+        policyHolderId: 31374999-a2e4-494e-9c4c-15e8a8b9f8b5
+        createdBy: John Smith
+        sfAccountId: 1
+      properties:
+        createdBy:
+          description: Description not provided.
+          example: John Smith
+          type: string
+        note:
+          description: Description not provided.
+          example: This is a note
+          type: string
+        policyHolderId:
+          description: Description not provided.
+          example: 31374999-a2e4-494e-9c4c-15e8a8b9f8b5
+          format: uuid
+          type: string
+        sfAccountId:
+          description: Description not provided.
+          example: 1
+          format: int32
+          type: integer
+      required:
+      - createdBy
+      - note
+      - policyHolderId
+      - sfAccountId
+      type: object
+    SetPolicyHolderOwnerModel:
+      example:
+        ownerId: 463461a2-4e14-4bc0-b8ed-f67e935c53c7
+      properties:
+        ownerId:
+          description: Description not provided.
+          example: 463461a2-4e14-4bc0-b8ed-f67e935c53c7
+          format: uuid
+          type: string
+      required:
+      - ownerId
+      type: object
+    PolicyHolderModel:
+      example:
+        sfTenantId: 6
+        address: 1 Infinite loop
+        city: Palo Alto
+        sfVersion: 1
+        companyName: Acme Inc
+        postalCode: "90210"
+        sfCreated: 2018-01-01 12:00:00
+        sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        userId: 54795d6b-79d4-47ea-a234-262c90170948
+        addressLineTwo: Apple Campus
+        province: MT
+        phone: 555-555-5555
+        name: John Smith
+        sfPath: sfPath
+        sfCustom:
+          key: '{}'
+        id: 6318062d-7d4d-4a89-a060-6d07c50f8020
+        fax: 555-555-6666
+        sfUpdated: 2018-01-01 12:00:00
+        email: john@acmeinc.net
+        sfAccountId: 0
+      properties:
+        address:
+          description: Description not provided.
+          example: 1 Infinite loop
+          type: string
+        addressLineTwo:
+          description: Description not provided.
+          example: Apple Campus
+          type: string
+        city:
+          description: Description not provided.
+          example: Palo Alto
+          type: string
+        companyName:
+          description: Description not provided.
+          example: Acme Inc
+          type: string
+        email:
+          description: Description not provided.
+          example: john@acmeinc.net
+          type: string
+        fax:
+          description: Description not provided.
+          example: 555-555-6666
+          type: string
+        name:
+          description: Description not provided.
+          example: John Smith
+          type: string
+        phone:
+          description: Description not provided.
+          example: 555-555-5555
+          type: string
+        postalCode:
+          description: Description not provided.
+          example: "90210"
+          type: string
+        province:
+          description: Description not provided.
+          example: MT
+          type: string
+        sfCustom:
+          additionalProperties:
+            properties: {}
+            type: object
+          description: Description not provided.
+          type: object
+        userId:
+          description: Description not provided.
+          example: 54795d6b-79d4-47ea-a234-262c90170948
+          format: uuid
+          type: string
+        id:
+          description: The id of the entity.
+          example: 6318062d-7d4d-4a89-a060-6d07c50f8020
+          format: uuid
+          type: string
+        sfAccountId:
+          description: ID of account in IAM hierarchy.
+          format: int32
+          type: integer
+        sfCreated:
+          description: The timestamp of when the entity was created.
+          example: 2018-01-01 12:00:00
+          type: string
+        sfOwnerId:
+          description: User ID of entity owner.
+          format: uuid
+          type: string
+        sfPath:
+          description: Path of entity in IAM hierarchy.
+          type: string
+        sfTenantId:
+          description: ID of tenant that entity belongs to.
+          format: int32
+          type: integer
+        sfUpdated:
+          description: The timestamp of when the entity was last updated.
+          example: 2018-01-01 12:00:00
+          type: string
+        sfVersion:
+          description: The current version of the entity.
+          example: 1
+          format: int32
+          type: integer
+      required:
+      - address
+      - addressLineTwo
+      - city
+      - companyName
+      - email
+      - fax
+      - id
+      - name
+      - phone
+      - postalCode
+      - province
+      - sfCreated
+      - sfCustom
+      - sfUpdated
+      - sfVersion
+      - userId
+      type: object
+    SuccessResultPolicyHolder:
+      example:
+        data:
+          sfTenantId: 6
+          address: 1 Infinite loop
+          city: Palo Alto
+          sfVersion: 1
+          companyName: Acme Inc
+          postalCode: "90210"
+          sfCreated: 2018-01-01 12:00:00
+          sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          userId: 54795d6b-79d4-47ea-a234-262c90170948
+          addressLineTwo: Apple Campus
+          province: MT
+          phone: 555-555-5555
+          name: John Smith
+          sfPath: sfPath
+          sfCustom:
+            key: '{}'
+          id: 6318062d-7d4d-4a89-a060-6d07c50f8020
+          fax: 555-555-6666
+          sfUpdated: 2018-01-01 12:00:00
+          email: john@acmeinc.net
+          sfAccountId: 0
+        meta:
+          processingTime: 9223372036854775807
+          transactionId: 1e6cb243-ec7d-4346-ba1e-a66246ad54d4
+      properties:
+        data:
+          $ref: '#/components/schemas/PolicyHolderModel'
+        meta:
+          $ref: '#/components/schemas/Metadata'
+      required:
+      - data
+      - meta
+      type: object
+    PolicyHolderUpdateModel:
+      example:
+        address: 1 Infinite loop
+        city: Palo Alto
+        sfVersion: 1
+        companyName: Acme Inc
+        postalCode: "90210"
+        userId: 54795d6b-79d4-47ea-a234-262c90170948
+        addressLineTwo: Apple Campus
+        province: MT
+        phone: 555-555-5555
+        name: John Smith
+        sfCustom:
+          key: '{}'
+        fax: 555-555-6666
+        email: john@acmeinc.net
+      properties:
+        address:
+          description: Description not provided.
+          example: 1 Infinite loop
+          type: string
+        addressLineTwo:
+          description: Description not provided.
+          example: Apple Campus
+          type: string
+        city:
+          description: Description not provided.
+          example: Palo Alto
+          type: string
+        companyName:
+          description: Description not provided.
+          example: Acme Inc
+          type: string
+        email:
+          description: Description not provided.
+          example: john@acmeinc.net
+          type: string
+        fax:
+          description: Description not provided.
+          example: 555-555-6666
+          type: string
+        name:
+          description: Description not provided.
+          example: John Smith
+          type: string
+        phone:
+          description: Description not provided.
+          example: 555-555-5555
+          type: string
+        postalCode:
+          description: Description not provided.
+          example: "90210"
+          type: string
+        province:
+          description: Description not provided.
+          example: MT
+          type: string
+        sfCustom:
+          additionalProperties:
+            properties: {}
+            type: object
+          description: Description not provided.
+          type: object
+        sfVersion:
+          description: Description not provided.
+          example: 1
+          format: int32
+          type: integer
+        userId:
+          description: Description not provided.
+          example: 54795d6b-79d4-47ea-a234-262c90170948
+          format: uuid
+          type: string
+      required:
+      - address
+      - addressLineTwo
+      - city
+      - companyName
+      - email
+      - fax
+      - name
+      - phone
+      - postalCode
+      - province
+      - sfCustom
+      - sfVersion
+      - userId
+      type: object
+    SuccessResultListPolicyHolder:
+      example:
+        data:
+        - sfTenantId: 6
+          address: 1 Infinite loop
+          city: Palo Alto
+          sfVersion: 1
+          companyName: Acme Inc
+          postalCode: "90210"
+          sfCreated: 2018-01-01 12:00:00
+          sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          userId: 54795d6b-79d4-47ea-a234-262c90170948
+          addressLineTwo: Apple Campus
+          province: MT
+          phone: 555-555-5555
+          name: John Smith
+          sfPath: sfPath
+          sfCustom:
+            key: '{}'
+          id: 6318062d-7d4d-4a89-a060-6d07c50f8020
+          fax: 555-555-6666
+          sfUpdated: 2018-01-01 12:00:00
+          email: john@acmeinc.net
+          sfAccountId: 0
+        - sfTenantId: 6
+          address: 1 Infinite loop
+          city: Palo Alto
+          sfVersion: 1
+          companyName: Acme Inc
+          postalCode: "90210"
+          sfCreated: 2018-01-01 12:00:00
+          sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          userId: 54795d6b-79d4-47ea-a234-262c90170948
+          addressLineTwo: Apple Campus
+          province: MT
+          phone: 555-555-5555
+          name: John Smith
+          sfPath: sfPath
+          sfCustom:
+            key: '{}'
+          id: 6318062d-7d4d-4a89-a060-6d07c50f8020
+          fax: 555-555-6666
+          sfUpdated: 2018-01-01 12:00:00
+          email: john@acmeinc.net
+          sfAccountId: 0
+        meta:
+          processingTime: 9223372036854775807
+          transactionId: 1e6cb243-ec7d-4346-ba1e-a66246ad54d4
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/PolicyHolderModel'
+          type: array
+        meta:
+          $ref: '#/components/schemas/Metadata'
+      required:
+      - data
+      - meta
+      type: object
+    PolicyHolderCreateModel:
+      example:
+        address: 1 Infinite loop
+        city: Palo Alto
+        companyName: Acme Inc
+        postalCode: "90210"
+        userId: 54795d6b-79d4-47ea-a234-262c90170948
+        addressLineTwo: Apple Campus
+        province: MT
+        phone: 555-555-5555
+        name: John Smith
+        sfCustom:
+          key: '{}'
+        fax: 555-555-6666
+        email: john@acmeinc.net
+        sfAccountId: 1
+      properties:
+        address:
+          description: Description not provided.
+          example: 1 Infinite loop
+          type: string
+        addressLineTwo:
+          description: Description not provided.
+          example: Apple Campus
+          type: string
+        city:
+          description: Description not provided.
+          example: Palo Alto
+          type: string
+        companyName:
+          description: Description not provided.
+          example: Acme Inc
+          type: string
+        email:
+          description: Description not provided.
+          example: john@acmeinc.net
+          type: string
+        fax:
+          description: Description not provided.
+          example: 555-555-6666
+          type: string
+        name:
+          description: Description not provided.
+          example: John Smith
+          type: string
+        phone:
+          description: Description not provided.
+          example: 555-555-5555
+          type: string
+        postalCode:
+          description: Description not provided.
+          example: "90210"
+          type: string
+        province:
+          description: Description not provided.
+          example: MT
+          type: string
+        sfAccountId:
+          description: Description not provided.
+          example: 1
+          format: int32
+          type: integer
+        sfCustom:
+          additionalProperties:
+            properties: {}
+            type: object
+          description: Description not provided.
+          type: object
+        userId:
+          description: Description not provided.
+          example: 54795d6b-79d4-47ea-a234-262c90170948
+          format: uuid
+          type: string
+      required:
+      - address
+      - addressLineTwo
+      - city
+      - companyName
+      - email
+      - fax
+      - name
+      - phone
+      - postalCode
+      - province
+      - sfAccountId
+      - sfCustom
+      - userId
+      type: object
+    PolicyNoteModel:
+      example:
+        note: This is a note
+        sfTenantId: 6
+        policyId: 21374999-a2e4-494e-9c4c-15e8a8b9f8b5
+        createdBy: John Smith
+        sfVersion: 1
+        sfPath: sfPath
+        sfCreated: 2018-01-01 12:00:00
+        id: 6318062d-7d4d-4a89-a060-6d07c50f8020
+        sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        sfUpdated: 2018-01-01 12:00:00
+        sfAccountId: 0
+      properties:
+        createdBy:
+          description: Description not provided.
+          example: John Smith
+          type: string
+        note:
+          description: Description not provided.
+          example: This is a note
+          type: string
+        policyId:
+          description: Description not provided.
+          example: 21374999-a2e4-494e-9c4c-15e8a8b9f8b5
+          format: uuid
+          type: string
+        id:
+          description: The id of the entity.
+          example: 6318062d-7d4d-4a89-a060-6d07c50f8020
+          format: uuid
+          type: string
+        sfAccountId:
+          description: ID of account in IAM hierarchy.
+          format: int32
+          type: integer
+        sfCreated:
+          description: The timestamp of when the entity was created.
+          example: 2018-01-01 12:00:00
+          type: string
+        sfOwnerId:
+          description: User ID of entity owner.
+          format: uuid
+          type: string
+        sfPath:
+          description: Path of entity in IAM hierarchy.
+          type: string
+        sfTenantId:
+          description: ID of tenant that entity belongs to.
+          format: int32
+          type: integer
+        sfUpdated:
+          description: The timestamp of when the entity was last updated.
+          example: 2018-01-01 12:00:00
+          type: string
+        sfVersion:
+          description: The current version of the entity.
+          example: 1
+          format: int32
+          type: integer
+      required:
+      - createdBy
+      - id
+      - note
+      - policyId
+      - sfCreated
+      - sfUpdated
+      - sfVersion
+      type: object
+    SuccessResultPolicyNote:
+      example:
+        data:
+          note: This is a note
+          sfTenantId: 6
+          policyId: 21374999-a2e4-494e-9c4c-15e8a8b9f8b5
+          createdBy: John Smith
+          sfVersion: 1
+          sfPath: sfPath
+          sfCreated: 2018-01-01 12:00:00
+          id: 6318062d-7d4d-4a89-a060-6d07c50f8020
+          sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          sfUpdated: 2018-01-01 12:00:00
+          sfAccountId: 0
+        meta:
+          processingTime: 9223372036854775807
+          transactionId: 1e6cb243-ec7d-4346-ba1e-a66246ad54d4
+      properties:
+        data:
+          $ref: '#/components/schemas/PolicyNoteModel'
+        meta:
+          $ref: '#/components/schemas/Metadata'
+      required:
+      - data
+      - meta
+      type: object
+    PolicyNoteUpdateModel:
+      example:
+        note: This is a note
+        policyId: 21374999-a2e4-494e-9c4c-15e8a8b9f8b5
+        createdBy: John Smith
+        sfVersion: 1
+      properties:
+        createdBy:
+          description: Description not provided.
+          example: John Smith
+          type: string
+        note:
+          description: Description not provided.
+          example: This is a note
+          type: string
+        policyId:
+          description: Description not provided.
+          example: 21374999-a2e4-494e-9c4c-15e8a8b9f8b5
+          format: uuid
+          type: string
+        sfVersion:
+          description: Description not provided.
+          example: 1
+          format: int32
+          type: integer
+      required:
+      - createdBy
+      - note
+      - policyId
+      - sfVersion
+      type: object
+    SuccessResultListPolicyNote:
+      example:
+        data:
+        - note: This is a note
+          sfTenantId: 6
+          policyId: 21374999-a2e4-494e-9c4c-15e8a8b9f8b5
+          createdBy: John Smith
+          sfVersion: 1
+          sfPath: sfPath
+          sfCreated: 2018-01-01 12:00:00
+          id: 6318062d-7d4d-4a89-a060-6d07c50f8020
+          sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          sfUpdated: 2018-01-01 12:00:00
+          sfAccountId: 0
+        - note: This is a note
+          sfTenantId: 6
+          policyId: 21374999-a2e4-494e-9c4c-15e8a8b9f8b5
+          createdBy: John Smith
+          sfVersion: 1
+          sfPath: sfPath
+          sfCreated: 2018-01-01 12:00:00
+          id: 6318062d-7d4d-4a89-a060-6d07c50f8020
+          sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          sfUpdated: 2018-01-01 12:00:00
+          sfAccountId: 0
+        meta:
+          processingTime: 9223372036854775807
+          transactionId: 1e6cb243-ec7d-4346-ba1e-a66246ad54d4
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/PolicyNoteModel'
+          type: array
+        meta:
+          $ref: '#/components/schemas/Metadata'
+      required:
+      - data
+      - meta
+      type: object
+    PolicyNoteCreateModel:
+      example:
+        note: This is a note
+        policyId: 21374999-a2e4-494e-9c4c-15e8a8b9f8b5
+        createdBy: John Smith
+        sfAccountId: 1
+      properties:
+        createdBy:
+          description: Description not provided.
+          example: John Smith
+          type: string
+        note:
+          description: Description not provided.
+          example: This is a note
+          type: string
+        policyId:
+          description: Description not provided.
+          example: 21374999-a2e4-494e-9c4c-15e8a8b9f8b5
+          format: uuid
+          type: string
+        sfAccountId:
+          description: Description not provided.
+          example: 1
+          format: int32
+          type: integer
+      required:
+      - createdBy
+      - note
+      - policyId
+      - sfAccountId
+      type: object
+    RefundModel:
+      example:
+        amount: 0.8008281904610115
+        tax: 6.027456183070403
+        option: NONE
+      properties:
+        amount:
+          description: Description not provided.
+          type: number
+        option:
+          description: Description not provided.
+          enum:
+          - NONE
+          - CUSTOM
+          - PRORATED
+          - FULL
+          type: string
+        tax:
+          description: Description not provided.
+          type: number
+      required:
+      - option
+      type: object
+    PolicyTerminateModel:
+      example:
+        note: no longer need coverage
+        refund:
+          amount: 0.8008281904610115
+          tax: 6.027456183070403
+          option: NONE
+      properties:
+        note:
+          description: Description not provided.
+          example: no longer need coverage
+          type: string
+        refund:
+          $ref: '#/components/schemas/RefundModel'
+      required:
+      - note
+      - refund
+      type: object
+    PolicyModel:
+      example:
+        sfTenantId: 6
+        fullPremium: 45.34
+        policyHolderId: 12374999-a2e4-494e-9c4c-15e8a8b9f8b5
+        productId: 11374999-a2e4-494e-9c4c-15e8a8b9f8b5
+        sfVersion: 2
+        policyNumber: ABC-00000012343
+        lifecycleType: NEW
+        payablePremium: 45.34
+        sfCreated: 2018-06-28 12:00:00
+        policyBundleId: b6fa9763-a573-4137-85c0-a10efa7e6be2
+        renewsPolicyId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        coverageEndDate: 2019-09-11 00:00:00
+        coverageStartDate: 2019-09-11 00:00:00
+        sfPath: sfPath
+        id: 5e2226f0-e02a-43bb-ad53-94e4e75471aa
+        taxAmount: 45.34
+        config: '[Shift ProductEngine serialized config]'
+        sfUpdated: 2018-06-29 12:00:00
+        sfAccountId: 0
+        status: AMENDED
+      properties:
+        config:
+          description: Description not provided.
+          example: '[Shift ProductEngine serialized config]'
+          type: string
+        coverageEndDate:
+          description: Description not provided.
+          example: 2019-09-11 00:00:00
+          type: string
+        coverageStartDate:
+          description: Description not provided.
+          example: 2019-09-11 00:00:00
+          type: string
+        fullPremium:
+          description: Description not provided.
+          example: 45.34
+          type: number
+        lifecycleType:
+          description: Description not provided.
+          enum:
+          - NEW
+          - ENDORSEMENT
+          - RENEWAL
+          - CANCELED
+          - TERMINATED
+          type: string
+        payablePremium:
+          description: Description not provided.
+          example: 45.34
+          type: number
+        policyBundleId:
+          description: Description not provided.
+          example: b6fa9763-a573-4137-85c0-a10efa7e6be2
+          format: uuid
+          type: string
+        policyHolderId:
+          description: Description not provided.
+          example: 12374999-a2e4-494e-9c4c-15e8a8b9f8b5
+          format: uuid
+          type: string
+        policyNumber:
+          description: Description not provided.
+          example: ABC-00000012343
+          type: string
+        productId:
+          description: Description not provided.
+          example: 11374999-a2e4-494e-9c4c-15e8a8b9f8b5
+          format: uuid
+          type: string
+        renewsPolicyId:
+          description: Description not provided.
+          format: uuid
+          type: string
+        status:
+          description: Description not provided.
+          example: AMENDED
+          type: string
+        taxAmount:
+          description: Description not provided.
+          example: 45.34
+          type: number
+        id:
+          description: The id of the entity.
+          example: 5e2226f0-e02a-43bb-ad53-94e4e75471aa
+          format: uuid
+          type: string
+        sfAccountId:
+          description: ID of account in IAM hierarchy.
+          format: int32
+          type: integer
+        sfCreated:
+          description: The timestamp of when the entity was created.
+          example: 2018-06-28 12:00:00
+          type: string
+        sfOwnerId:
+          description: User ID of entity owner.
+          format: uuid
+          type: string
+        sfPath:
+          description: Path of entity in IAM hierarchy.
+          type: string
+        sfTenantId:
+          description: ID of tenant that entity belongs to.
+          format: int32
+          type: integer
+        sfUpdated:
+          description: The timestamp of when the entity was last updated.
+          example: 2018-06-29 12:00:00
+          type: string
+        sfVersion:
+          description: The current version of the entity.
+          example: 2
+          format: int32
+          type: integer
+      required:
+      - config
+      - coverageEndDate
+      - coverageStartDate
+      - fullPremium
+      - id
+      - lifecycleType
+      - payablePremium
+      - policyBundleId
+      - policyHolderId
+      - policyNumber
+      - productId
+      - sfCreated
+      - sfUpdated
+      - sfVersion
+      - status
+      - taxAmount
+      type: object
+    TerminatePolicyResponseModel:
+      example:
+        policy:
+          sfTenantId: 6
+          fullPremium: 45.34
+          policyHolderId: 12374999-a2e4-494e-9c4c-15e8a8b9f8b5
+          productId: 11374999-a2e4-494e-9c4c-15e8a8b9f8b5
+          sfVersion: 2
+          policyNumber: ABC-00000012343
+          lifecycleType: NEW
+          payablePremium: 45.34
+          sfCreated: 2018-06-28 12:00:00
+          policyBundleId: b6fa9763-a573-4137-85c0-a10efa7e6be2
+          renewsPolicyId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          coverageEndDate: 2019-09-11 00:00:00
+          coverageStartDate: 2019-09-11 00:00:00
+          sfPath: sfPath
+          id: 5e2226f0-e02a-43bb-ad53-94e4e75471aa
+          taxAmount: 45.34
+          config: '[Shift ProductEngine serialized config]'
+          sfUpdated: 2018-06-29 12:00:00
+          sfAccountId: 0
+          status: AMENDED
+      properties:
+        policy:
+          $ref: '#/components/schemas/PolicyModel'
+      required:
+      - policy
+      type: object
+    SuccessResultTerminatePolicyResponseModel:
+      example:
+        data:
+          policy:
+            sfTenantId: 6
+            fullPremium: 45.34
+            policyHolderId: 12374999-a2e4-494e-9c4c-15e8a8b9f8b5
+            productId: 11374999-a2e4-494e-9c4c-15e8a8b9f8b5
+            sfVersion: 2
+            policyNumber: ABC-00000012343
+            lifecycleType: NEW
+            payablePremium: 45.34
+            sfCreated: 2018-06-28 12:00:00
+            policyBundleId: b6fa9763-a573-4137-85c0-a10efa7e6be2
+            renewsPolicyId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            coverageEndDate: 2019-09-11 00:00:00
+            coverageStartDate: 2019-09-11 00:00:00
+            sfPath: sfPath
+            id: 5e2226f0-e02a-43bb-ad53-94e4e75471aa
+            taxAmount: 45.34
+            config: '[Shift ProductEngine serialized config]'
+            sfUpdated: 2018-06-29 12:00:00
+            sfAccountId: 0
+            status: AMENDED
+        meta:
+          processingTime: 9223372036854775807
+          transactionId: 1e6cb243-ec7d-4346-ba1e-a66246ad54d4
+      properties:
+        data:
+          $ref: '#/components/schemas/TerminatePolicyResponseModel'
+        meta:
+          $ref: '#/components/schemas/Metadata'
+      required:
+      - data
+      - meta
+      type: object
+    PolicyLapseModel:
+      example:
+        note: not going to renew
+      properties:
+        note:
+          description: Description not provided.
+          example: not going to renew
+          type: string
+      required:
+      - note
+      type: object
+    LapsePolicyResponseModel:
+      example:
+        policy:
+          sfTenantId: 6
+          fullPremium: 45.34
+          policyHolderId: 12374999-a2e4-494e-9c4c-15e8a8b9f8b5
+          productId: 11374999-a2e4-494e-9c4c-15e8a8b9f8b5
+          sfVersion: 2
+          policyNumber: ABC-00000012343
+          lifecycleType: NEW
+          payablePremium: 45.34
+          sfCreated: 2018-06-28 12:00:00
+          policyBundleId: b6fa9763-a573-4137-85c0-a10efa7e6be2
+          renewsPolicyId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          coverageEndDate: 2019-09-11 00:00:00
+          coverageStartDate: 2019-09-11 00:00:00
+          sfPath: sfPath
+          id: 5e2226f0-e02a-43bb-ad53-94e4e75471aa
+          taxAmount: 45.34
+          config: '[Shift ProductEngine serialized config]'
+          sfUpdated: 2018-06-29 12:00:00
+          sfAccountId: 0
+          status: AMENDED
+      properties:
+        policy:
+          $ref: '#/components/schemas/PolicyModel'
+      required:
+      - policy
+      type: object
+    SuccessResultLapsePolicyResponseModel:
+      example:
+        data:
+          policy:
+            sfTenantId: 6
+            fullPremium: 45.34
+            policyHolderId: 12374999-a2e4-494e-9c4c-15e8a8b9f8b5
+            productId: 11374999-a2e4-494e-9c4c-15e8a8b9f8b5
+            sfVersion: 2
+            policyNumber: ABC-00000012343
+            lifecycleType: NEW
+            payablePremium: 45.34
+            sfCreated: 2018-06-28 12:00:00
+            policyBundleId: b6fa9763-a573-4137-85c0-a10efa7e6be2
+            renewsPolicyId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            coverageEndDate: 2019-09-11 00:00:00
+            coverageStartDate: 2019-09-11 00:00:00
+            sfPath: sfPath
+            id: 5e2226f0-e02a-43bb-ad53-94e4e75471aa
+            taxAmount: 45.34
+            config: '[Shift ProductEngine serialized config]'
+            sfUpdated: 2018-06-29 12:00:00
+            sfAccountId: 0
+            status: AMENDED
+        meta:
+          processingTime: 9223372036854775807
+          transactionId: 1e6cb243-ec7d-4346-ba1e-a66246ad54d4
+      properties:
+        data:
+          $ref: '#/components/schemas/LapsePolicyResponseModel'
+        meta:
+          $ref: '#/components/schemas/Metadata'
+      required:
+      - data
+      - meta
+      type: object
+    PolicyEndorseModel:
+      example:
+        config: '[Shift ProductEngine serialized config]'
+      properties:
+        config:
+          description: Description not provided.
+          example: '[Shift ProductEngine serialized config]'
+          type: string
+      required:
+      - config
+      type: object
+    EndorsePolicyResponseModel:
+      example:
+        bundle:
+          sfTenantId: 6
+          sfVersion: 1
+          sfPath: sfPath
+          sfCreated: 2018-06-28 12:00:00
+          invoiceId: 00000000-0000-0000-0000-000000000000
+          id: 5e2226f0-e02a-43bb-ad53-94e4e75471aa
+          sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          type: NEW
+          sfUpdated: 2018-06-28 12:00:00
+          sfAccountId: 0
+          status: CREATED
+        policy:
+          sfTenantId: 6
+          fullPremium: 45.34
+          policyHolderId: 12374999-a2e4-494e-9c4c-15e8a8b9f8b5
+          productId: 11374999-a2e4-494e-9c4c-15e8a8b9f8b5
+          sfVersion: 2
+          policyNumber: ABC-00000012343
+          lifecycleType: NEW
+          payablePremium: 45.34
+          sfCreated: 2018-06-28 12:00:00
+          policyBundleId: b6fa9763-a573-4137-85c0-a10efa7e6be2
+          renewsPolicyId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          coverageEndDate: 2019-09-11 00:00:00
+          coverageStartDate: 2019-09-11 00:00:00
+          sfPath: sfPath
+          id: 5e2226f0-e02a-43bb-ad53-94e4e75471aa
+          taxAmount: 45.34
+          config: '[Shift ProductEngine serialized config]'
+          sfUpdated: 2018-06-29 12:00:00
+          sfAccountId: 0
+          status: AMENDED
+      properties:
+        bundle:
+          $ref: '#/components/schemas/PolicyBundleModel'
+        policy:
+          $ref: '#/components/schemas/PolicyModel'
+      required:
+      - bundle
+      - policy
+      type: object
+    SuccessResultEndorsePolicyResponseModel:
+      example:
+        data:
+          bundle:
+            sfTenantId: 6
+            sfVersion: 1
+            sfPath: sfPath
+            sfCreated: 2018-06-28 12:00:00
+            invoiceId: 00000000-0000-0000-0000-000000000000
+            id: 5e2226f0-e02a-43bb-ad53-94e4e75471aa
+            sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            type: NEW
+            sfUpdated: 2018-06-28 12:00:00
+            sfAccountId: 0
+            status: CREATED
+          policy:
+            sfTenantId: 6
+            fullPremium: 45.34
+            policyHolderId: 12374999-a2e4-494e-9c4c-15e8a8b9f8b5
+            productId: 11374999-a2e4-494e-9c4c-15e8a8b9f8b5
+            sfVersion: 2
+            policyNumber: ABC-00000012343
+            lifecycleType: NEW
+            payablePremium: 45.34
+            sfCreated: 2018-06-28 12:00:00
+            policyBundleId: b6fa9763-a573-4137-85c0-a10efa7e6be2
+            renewsPolicyId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            coverageEndDate: 2019-09-11 00:00:00
+            coverageStartDate: 2019-09-11 00:00:00
+            sfPath: sfPath
+            id: 5e2226f0-e02a-43bb-ad53-94e4e75471aa
+            taxAmount: 45.34
+            config: '[Shift ProductEngine serialized config]'
+            sfUpdated: 2018-06-29 12:00:00
+            sfAccountId: 0
+            status: AMENDED
+        meta:
+          processingTime: 9223372036854775807
+          transactionId: 1e6cb243-ec7d-4346-ba1e-a66246ad54d4
+      properties:
+        data:
+          $ref: '#/components/schemas/EndorsePolicyResponseModel'
+        meta:
+          $ref: '#/components/schemas/Metadata'
+      required:
+      - data
+      - meta
+      type: object
+    PolicyReviewModel:
+      example:
+        config: '[Shift ProductEngine serialized config]'
+        outcome: REVISED
+      properties:
+        config:
+          description: Description not provided.
+          example: '[Shift ProductEngine serialized config]'
+          type: string
+        outcome:
+          description: Description not provided.
+          example: REVISED
+          type: string
+      required:
+      - config
+      - outcome
+      type: object
+    ReviewPolicyResponseModel:
+      example:
+        bundle:
+          sfTenantId: 6
+          sfVersion: 1
+          sfPath: sfPath
+          sfCreated: 2018-06-28 12:00:00
+          invoiceId: 00000000-0000-0000-0000-000000000000
+          id: 5e2226f0-e02a-43bb-ad53-94e4e75471aa
+          sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          type: NEW
+          sfUpdated: 2018-06-28 12:00:00
+          sfAccountId: 0
+          status: CREATED
+        policy:
+          sfTenantId: 6
+          fullPremium: 45.34
+          policyHolderId: 12374999-a2e4-494e-9c4c-15e8a8b9f8b5
+          productId: 11374999-a2e4-494e-9c4c-15e8a8b9f8b5
+          sfVersion: 2
+          policyNumber: ABC-00000012343
+          lifecycleType: NEW
+          payablePremium: 45.34
+          sfCreated: 2018-06-28 12:00:00
+          policyBundleId: b6fa9763-a573-4137-85c0-a10efa7e6be2
+          renewsPolicyId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          coverageEndDate: 2019-09-11 00:00:00
+          coverageStartDate: 2019-09-11 00:00:00
+          sfPath: sfPath
+          id: 5e2226f0-e02a-43bb-ad53-94e4e75471aa
+          taxAmount: 45.34
+          config: '[Shift ProductEngine serialized config]'
+          sfUpdated: 2018-06-29 12:00:00
+          sfAccountId: 0
+          status: AMENDED
+      properties:
+        bundle:
+          $ref: '#/components/schemas/PolicyBundleModel'
+        policy:
+          $ref: '#/components/schemas/PolicyModel'
+      required:
+      - bundle
+      - policy
+      type: object
+    SuccessResultReviewPolicyResponseModel:
+      example:
+        data:
+          bundle:
+            sfTenantId: 6
+            sfVersion: 1
+            sfPath: sfPath
+            sfCreated: 2018-06-28 12:00:00
+            invoiceId: 00000000-0000-0000-0000-000000000000
+            id: 5e2226f0-e02a-43bb-ad53-94e4e75471aa
+            sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            type: NEW
+            sfUpdated: 2018-06-28 12:00:00
+            sfAccountId: 0
+            status: CREATED
+          policy:
+            sfTenantId: 6
+            fullPremium: 45.34
+            policyHolderId: 12374999-a2e4-494e-9c4c-15e8a8b9f8b5
+            productId: 11374999-a2e4-494e-9c4c-15e8a8b9f8b5
+            sfVersion: 2
+            policyNumber: ABC-00000012343
+            lifecycleType: NEW
+            payablePremium: 45.34
+            sfCreated: 2018-06-28 12:00:00
+            policyBundleId: b6fa9763-a573-4137-85c0-a10efa7e6be2
+            renewsPolicyId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            coverageEndDate: 2019-09-11 00:00:00
+            coverageStartDate: 2019-09-11 00:00:00
+            sfPath: sfPath
+            id: 5e2226f0-e02a-43bb-ad53-94e4e75471aa
+            taxAmount: 45.34
+            config: '[Shift ProductEngine serialized config]'
+            sfUpdated: 2018-06-29 12:00:00
+            sfAccountId: 0
+            status: AMENDED
+        meta:
+          processingTime: 9223372036854775807
+          transactionId: 1e6cb243-ec7d-4346-ba1e-a66246ad54d4
+      properties:
+        data:
+          $ref: '#/components/schemas/ReviewPolicyResponseModel'
+        meta:
+          $ref: '#/components/schemas/Metadata'
+      required:
+      - data
+      - meta
+      type: object
+    ConvertQuoteModel:
+      example:
+        quotes:
+        - dc4bb8a8-f4fe-425a-b1bb-442c134b0b8d
+        - dc4bb8a8-f4fe-425a-b1bb-442c134b0b8d
+      properties:
+        quotes:
+          items:
+            example: dc4bb8a8-f4fe-425a-b1bb-442c134b0b8d
+            format: uuid
+            type: string
+          type: array
+      required:
+      - quotes
+      type: object
+    ConvertQuoteResponseModel:
+      example:
+        policies:
+        - sfTenantId: 6
+          fullPremium: 45.34
+          policyHolderId: 12374999-a2e4-494e-9c4c-15e8a8b9f8b5
+          productId: 11374999-a2e4-494e-9c4c-15e8a8b9f8b5
+          sfVersion: 2
+          policyNumber: ABC-00000012343
+          lifecycleType: NEW
+          payablePremium: 45.34
+          sfCreated: 2018-06-28 12:00:00
+          policyBundleId: b6fa9763-a573-4137-85c0-a10efa7e6be2
+          renewsPolicyId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          coverageEndDate: 2019-09-11 00:00:00
+          coverageStartDate: 2019-09-11 00:00:00
+          sfPath: sfPath
+          id: 5e2226f0-e02a-43bb-ad53-94e4e75471aa
+          taxAmount: 45.34
+          config: '[Shift ProductEngine serialized config]'
+          sfUpdated: 2018-06-29 12:00:00
+          sfAccountId: 0
+          status: AMENDED
+        - sfTenantId: 6
+          fullPremium: 45.34
+          policyHolderId: 12374999-a2e4-494e-9c4c-15e8a8b9f8b5
+          productId: 11374999-a2e4-494e-9c4c-15e8a8b9f8b5
+          sfVersion: 2
+          policyNumber: ABC-00000012343
+          lifecycleType: NEW
+          payablePremium: 45.34
+          sfCreated: 2018-06-28 12:00:00
+          policyBundleId: b6fa9763-a573-4137-85c0-a10efa7e6be2
+          renewsPolicyId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          coverageEndDate: 2019-09-11 00:00:00
+          coverageStartDate: 2019-09-11 00:00:00
+          sfPath: sfPath
+          id: 5e2226f0-e02a-43bb-ad53-94e4e75471aa
+          taxAmount: 45.34
+          config: '[Shift ProductEngine serialized config]'
+          sfUpdated: 2018-06-29 12:00:00
+          sfAccountId: 0
+          status: AMENDED
+        bundle:
+          sfTenantId: 6
+          sfVersion: 1
+          sfPath: sfPath
+          sfCreated: 2018-06-28 12:00:00
+          invoiceId: 00000000-0000-0000-0000-000000000000
+          id: 5e2226f0-e02a-43bb-ad53-94e4e75471aa
+          sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          type: NEW
+          sfUpdated: 2018-06-28 12:00:00
+          sfAccountId: 0
+          status: CREATED
+      properties:
+        bundle:
+          $ref: '#/components/schemas/PolicyBundleModel'
+        policies:
+          items:
+            $ref: '#/components/schemas/PolicyModel'
+          type: array
+      required:
+      - bundle
+      - policies
+      type: object
+    SuccessResultConvertQuoteResponse:
+      example:
+        data:
+          policies:
+          - sfTenantId: 6
+            fullPremium: 45.34
+            policyHolderId: 12374999-a2e4-494e-9c4c-15e8a8b9f8b5
+            productId: 11374999-a2e4-494e-9c4c-15e8a8b9f8b5
+            sfVersion: 2
+            policyNumber: ABC-00000012343
+            lifecycleType: NEW
+            payablePremium: 45.34
+            sfCreated: 2018-06-28 12:00:00
+            policyBundleId: b6fa9763-a573-4137-85c0-a10efa7e6be2
+            renewsPolicyId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            coverageEndDate: 2019-09-11 00:00:00
+            coverageStartDate: 2019-09-11 00:00:00
+            sfPath: sfPath
+            id: 5e2226f0-e02a-43bb-ad53-94e4e75471aa
+            taxAmount: 45.34
+            config: '[Shift ProductEngine serialized config]'
+            sfUpdated: 2018-06-29 12:00:00
+            sfAccountId: 0
+            status: AMENDED
+          - sfTenantId: 6
+            fullPremium: 45.34
+            policyHolderId: 12374999-a2e4-494e-9c4c-15e8a8b9f8b5
+            productId: 11374999-a2e4-494e-9c4c-15e8a8b9f8b5
+            sfVersion: 2
+            policyNumber: ABC-00000012343
+            lifecycleType: NEW
+            payablePremium: 45.34
+            sfCreated: 2018-06-28 12:00:00
+            policyBundleId: b6fa9763-a573-4137-85c0-a10efa7e6be2
+            renewsPolicyId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            coverageEndDate: 2019-09-11 00:00:00
+            coverageStartDate: 2019-09-11 00:00:00
+            sfPath: sfPath
+            id: 5e2226f0-e02a-43bb-ad53-94e4e75471aa
+            taxAmount: 45.34
+            config: '[Shift ProductEngine serialized config]'
+            sfUpdated: 2018-06-29 12:00:00
+            sfAccountId: 0
+            status: AMENDED
+          bundle:
+            sfTenantId: 6
+            sfVersion: 1
+            sfPath: sfPath
+            sfCreated: 2018-06-28 12:00:00
+            invoiceId: 00000000-0000-0000-0000-000000000000
+            id: 5e2226f0-e02a-43bb-ad53-94e4e75471aa
+            sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            type: NEW
+            sfUpdated: 2018-06-28 12:00:00
+            sfAccountId: 0
+            status: CREATED
+        meta:
+          processingTime: 9223372036854775807
+          transactionId: 1e6cb243-ec7d-4346-ba1e-a66246ad54d4
+      properties:
+        data:
+          $ref: '#/components/schemas/ConvertQuoteResponseModel'
+        meta:
+          $ref: '#/components/schemas/Metadata'
+      required:
+      - data
+      - meta
+      type: object
+    PolicyCancelModel:
+      example:
+        note: no longer need coverage
+        cancellationDate: 2019-10-10
+        refund:
+          amount: 0.8008281904610115
+          tax: 6.027456183070403
+          option: NONE
+      properties:
+        cancellationDate:
+          description: Description not provided.
+          example: 2019-10-10
+          type: string
+        note:
+          description: Description not provided.
+          example: no longer need coverage
+          type: string
+        refund:
+          $ref: '#/components/schemas/RefundModel'
+      required:
+      - cancellationDate
+      - note
+      - refund
+      type: object
+    CancelPolicyResponseModel:
+      example:
+        policy:
+          sfTenantId: 6
+          fullPremium: 45.34
+          policyHolderId: 12374999-a2e4-494e-9c4c-15e8a8b9f8b5
+          productId: 11374999-a2e4-494e-9c4c-15e8a8b9f8b5
+          sfVersion: 2
+          policyNumber: ABC-00000012343
+          lifecycleType: NEW
+          payablePremium: 45.34
+          sfCreated: 2018-06-28 12:00:00
+          policyBundleId: b6fa9763-a573-4137-85c0-a10efa7e6be2
+          renewsPolicyId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          coverageEndDate: 2019-09-11 00:00:00
+          coverageStartDate: 2019-09-11 00:00:00
+          sfPath: sfPath
+          id: 5e2226f0-e02a-43bb-ad53-94e4e75471aa
+          taxAmount: 45.34
+          config: '[Shift ProductEngine serialized config]'
+          sfUpdated: 2018-06-29 12:00:00
+          sfAccountId: 0
+          status: AMENDED
+      properties:
+        policy:
+          $ref: '#/components/schemas/PolicyModel'
+      required:
+      - policy
+      type: object
+    SuccessResultCancelPolicyResponseModel:
+      example:
+        data:
+          policy:
+            sfTenantId: 6
+            fullPremium: 45.34
+            policyHolderId: 12374999-a2e4-494e-9c4c-15e8a8b9f8b5
+            productId: 11374999-a2e4-494e-9c4c-15e8a8b9f8b5
+            sfVersion: 2
+            policyNumber: ABC-00000012343
+            lifecycleType: NEW
+            payablePremium: 45.34
+            sfCreated: 2018-06-28 12:00:00
+            policyBundleId: b6fa9763-a573-4137-85c0-a10efa7e6be2
+            renewsPolicyId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            coverageEndDate: 2019-09-11 00:00:00
+            coverageStartDate: 2019-09-11 00:00:00
+            sfPath: sfPath
+            id: 5e2226f0-e02a-43bb-ad53-94e4e75471aa
+            taxAmount: 45.34
+            config: '[Shift ProductEngine serialized config]'
+            sfUpdated: 2018-06-29 12:00:00
+            sfAccountId: 0
+            status: AMENDED
+        meta:
+          processingTime: 9223372036854775807
+          transactionId: 1e6cb243-ec7d-4346-ba1e-a66246ad54d4
+      properties:
+        data:
+          $ref: '#/components/schemas/CancelPolicyResponseModel'
+        meta:
+          $ref: '#/components/schemas/Metadata'
+      required:
+      - data
+      - meta
+      type: object
+    AmendPolicyModel:
+      example:
+        config: '[Shift ProductEngine serialized config]'
+      properties:
+        config:
+          description: Description not provided.
+          example: '[Shift ProductEngine serialized config]'
+          type: string
+      required:
+      - config
+      type: object
+    AmendPolicyResponseModel:
+      example:
+        bundle:
+          sfTenantId: 6
+          sfVersion: 1
+          sfPath: sfPath
+          sfCreated: 2018-06-28 12:00:00
+          invoiceId: 00000000-0000-0000-0000-000000000000
+          id: 5e2226f0-e02a-43bb-ad53-94e4e75471aa
+          sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          type: NEW
+          sfUpdated: 2018-06-28 12:00:00
+          sfAccountId: 0
+          status: CREATED
+        policy:
+          sfTenantId: 6
+          fullPremium: 45.34
+          policyHolderId: 12374999-a2e4-494e-9c4c-15e8a8b9f8b5
+          productId: 11374999-a2e4-494e-9c4c-15e8a8b9f8b5
+          sfVersion: 2
+          policyNumber: ABC-00000012343
+          lifecycleType: NEW
+          payablePremium: 45.34
+          sfCreated: 2018-06-28 12:00:00
+          policyBundleId: b6fa9763-a573-4137-85c0-a10efa7e6be2
+          renewsPolicyId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          coverageEndDate: 2019-09-11 00:00:00
+          coverageStartDate: 2019-09-11 00:00:00
+          sfPath: sfPath
+          id: 5e2226f0-e02a-43bb-ad53-94e4e75471aa
+          taxAmount: 45.34
+          config: '[Shift ProductEngine serialized config]'
+          sfUpdated: 2018-06-29 12:00:00
+          sfAccountId: 0
+          status: AMENDED
+      properties:
+        bundle:
+          $ref: '#/components/schemas/PolicyBundleModel'
+        policy:
+          $ref: '#/components/schemas/PolicyModel'
+      required:
+      - bundle
+      - policy
+      type: object
+    SuccessResultAmendPolicyResponseModel:
+      example:
+        data:
+          bundle:
+            sfTenantId: 6
+            sfVersion: 1
+            sfPath: sfPath
+            sfCreated: 2018-06-28 12:00:00
+            invoiceId: 00000000-0000-0000-0000-000000000000
+            id: 5e2226f0-e02a-43bb-ad53-94e4e75471aa
+            sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            type: NEW
+            sfUpdated: 2018-06-28 12:00:00
+            sfAccountId: 0
+            status: CREATED
+          policy:
+            sfTenantId: 6
+            fullPremium: 45.34
+            policyHolderId: 12374999-a2e4-494e-9c4c-15e8a8b9f8b5
+            productId: 11374999-a2e4-494e-9c4c-15e8a8b9f8b5
+            sfVersion: 2
+            policyNumber: ABC-00000012343
+            lifecycleType: NEW
+            payablePremium: 45.34
+            sfCreated: 2018-06-28 12:00:00
+            policyBundleId: b6fa9763-a573-4137-85c0-a10efa7e6be2
+            renewsPolicyId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            coverageEndDate: 2019-09-11 00:00:00
+            coverageStartDate: 2019-09-11 00:00:00
+            sfPath: sfPath
+            id: 5e2226f0-e02a-43bb-ad53-94e4e75471aa
+            taxAmount: 45.34
+            config: '[Shift ProductEngine serialized config]'
+            sfUpdated: 2018-06-29 12:00:00
+            sfAccountId: 0
+            status: AMENDED
+        meta:
+          processingTime: 9223372036854775807
+          transactionId: 1e6cb243-ec7d-4346-ba1e-a66246ad54d4
+      properties:
+        data:
+          $ref: '#/components/schemas/AmendPolicyResponseModel'
+        meta:
+          $ref: '#/components/schemas/Metadata'
+      required:
+      - data
+      - meta
+      type: object
+    PolicyHistoryModel:
+      example:
+        historyTimestamp: 2018-01-01 12:00:00
+        historyEntity:
+          sfTenantId: 6
+          fullPremium: 45.34
+          policyHolderId: 12374999-a2e4-494e-9c4c-15e8a8b9f8b5
+          productId: 11374999-a2e4-494e-9c4c-15e8a8b9f8b5
+          sfVersion: 2
+          policyNumber: ABC-00000012343
+          lifecycleType: NEW
+          payablePremium: 45.34
+          sfCreated: 2018-06-28 12:00:00
+          policyBundleId: b6fa9763-a573-4137-85c0-a10efa7e6be2
+          renewsPolicyId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          coverageEndDate: 2019-09-11 00:00:00
+          coverageStartDate: 2019-09-11 00:00:00
+          sfPath: sfPath
+          id: 5e2226f0-e02a-43bb-ad53-94e4e75471aa
+          taxAmount: 45.34
+          config: '[Shift ProductEngine serialized config]'
+          sfUpdated: 2018-06-29 12:00:00
+          sfAccountId: 0
+          status: AMENDED
+        historyId: 6318062d-7d4d-4a89-a060-6d07c50f8011
+        historyVersion: 10
+        historyAction: UPDATE
+        historyCreatedBy: 6318062d-7d4d-4a89-a060-6d07c50f8012
+      properties:
+        historyAction:
+          description: Description not provided.
+          example: UPDATE
+          type: string
+        historyCreatedBy:
+          description: Description not provided.
+          example: 6318062d-7d4d-4a89-a060-6d07c50f8012
+          format: uuid
+          type: string
+        historyEntity:
+          $ref: '#/components/schemas/PolicyModel'
+        historyId:
+          description: Description not provided.
+          example: 6318062d-7d4d-4a89-a060-6d07c50f8011
+          format: uuid
+          type: string
+        historyTimestamp:
+          description: Description not provided.
+          example: 2018-01-01 12:00:00
+          type: string
+        historyVersion:
+          description: Description not provided.
+          example: 10
+          format: int32
+          type: integer
+      required:
+      - historyAction
+      - historyCreatedBy
+      - historyEntity
+      - historyId
+      - historyTimestamp
+      - historyVersion
+      type: object
+    SuccessResultListPolicyHistory:
+      example:
+        data:
+        - historyTimestamp: 2018-01-01 12:00:00
+          historyEntity:
+            sfTenantId: 6
+            fullPremium: 45.34
+            policyHolderId: 12374999-a2e4-494e-9c4c-15e8a8b9f8b5
+            productId: 11374999-a2e4-494e-9c4c-15e8a8b9f8b5
+            sfVersion: 2
+            policyNumber: ABC-00000012343
+            lifecycleType: NEW
+            payablePremium: 45.34
+            sfCreated: 2018-06-28 12:00:00
+            policyBundleId: b6fa9763-a573-4137-85c0-a10efa7e6be2
+            renewsPolicyId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            coverageEndDate: 2019-09-11 00:00:00
+            coverageStartDate: 2019-09-11 00:00:00
+            sfPath: sfPath
+            id: 5e2226f0-e02a-43bb-ad53-94e4e75471aa
+            taxAmount: 45.34
+            config: '[Shift ProductEngine serialized config]'
+            sfUpdated: 2018-06-29 12:00:00
+            sfAccountId: 0
+            status: AMENDED
+          historyId: 6318062d-7d4d-4a89-a060-6d07c50f8011
+          historyVersion: 10
+          historyAction: UPDATE
+          historyCreatedBy: 6318062d-7d4d-4a89-a060-6d07c50f8012
+        - historyTimestamp: 2018-01-01 12:00:00
+          historyEntity:
+            sfTenantId: 6
+            fullPremium: 45.34
+            policyHolderId: 12374999-a2e4-494e-9c4c-15e8a8b9f8b5
+            productId: 11374999-a2e4-494e-9c4c-15e8a8b9f8b5
+            sfVersion: 2
+            policyNumber: ABC-00000012343
+            lifecycleType: NEW
+            payablePremium: 45.34
+            sfCreated: 2018-06-28 12:00:00
+            policyBundleId: b6fa9763-a573-4137-85c0-a10efa7e6be2
+            renewsPolicyId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            coverageEndDate: 2019-09-11 00:00:00
+            coverageStartDate: 2019-09-11 00:00:00
+            sfPath: sfPath
+            id: 5e2226f0-e02a-43bb-ad53-94e4e75471aa
+            taxAmount: 45.34
+            config: '[Shift ProductEngine serialized config]'
+            sfUpdated: 2018-06-29 12:00:00
+            sfAccountId: 0
+            status: AMENDED
+          historyId: 6318062d-7d4d-4a89-a060-6d07c50f8011
+          historyVersion: 10
+          historyAction: UPDATE
+          historyCreatedBy: 6318062d-7d4d-4a89-a060-6d07c50f8012
+        meta:
+          processingTime: 9223372036854775807
+          transactionId: 1e6cb243-ec7d-4346-ba1e-a66246ad54d4
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/PolicyHistoryModel'
+          type: array
+        meta:
+          $ref: '#/components/schemas/Metadata'
+      required:
+      - data
+      - meta
+      type: object
+    SetPolicyOwnerModel:
+      example:
+        ownerId: 463461a2-4e14-4bc0-b8ed-f67e935c53c7
+      properties:
+        ownerId:
+          description: Description not provided.
+          example: 463461a2-4e14-4bc0-b8ed-f67e935c53c7
+          format: uuid
+          type: string
+      required:
+      - ownerId
+      type: object
+    SuccessResultPolicy:
+      example:
+        data:
+          sfTenantId: 6
+          fullPremium: 45.34
+          policyHolderId: 12374999-a2e4-494e-9c4c-15e8a8b9f8b5
+          productId: 11374999-a2e4-494e-9c4c-15e8a8b9f8b5
+          sfVersion: 2
+          policyNumber: ABC-00000012343
+          lifecycleType: NEW
+          payablePremium: 45.34
+          sfCreated: 2018-06-28 12:00:00
+          policyBundleId: b6fa9763-a573-4137-85c0-a10efa7e6be2
+          renewsPolicyId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          coverageEndDate: 2019-09-11 00:00:00
+          coverageStartDate: 2019-09-11 00:00:00
+          sfPath: sfPath
+          id: 5e2226f0-e02a-43bb-ad53-94e4e75471aa
+          taxAmount: 45.34
+          config: '[Shift ProductEngine serialized config]'
+          sfUpdated: 2018-06-29 12:00:00
+          sfAccountId: 0
+          status: AMENDED
+        meta:
+          processingTime: 9223372036854775807
+          transactionId: 1e6cb243-ec7d-4346-ba1e-a66246ad54d4
+      properties:
+        data:
+          $ref: '#/components/schemas/PolicyModel'
+        meta:
+          $ref: '#/components/schemas/Metadata'
+      required:
+      - data
+      - meta
+      type: object
+    PolicyUpdateModel:
+      example:
+        fullPremium: 45.34
+        policyHolderId: 12374999-a2e4-494e-9c4c-15e8a8b9f8b5
+        productId: 11374999-a2e4-494e-9c4c-15e8a8b9f8b5
+        sfVersion: 1
+        policyNumber: ABC-00000012343
+        lifecycleType: NEW
+        payablePremium: 45.34
+        policyBundleId: b6fa9763-a573-4137-85c0-a10efa7e6be2
+        renewsPolicyId: ce853344-0449-4ebe-ac76-b0b5b53ef7ed
+        coverageEndDate: 2019-09-11 00:00:00
+        coverageStartDate: 2019-09-11 00:00:00
+        taxAmount: 45.34
+        config: '[Shift ProductEngine serialized config]'
+        status: CREATED
+      properties:
+        config:
+          description: Description not provided.
+          example: '[Shift ProductEngine serialized config]'
+          type: string
+        coverageEndDate:
+          description: Description not provided.
+          example: 2019-09-11 00:00:00
+          type: string
+        coverageStartDate:
+          description: Description not provided.
+          example: 2019-09-11 00:00:00
+          type: string
+        fullPremium:
+          description: Description not provided.
+          example: 45.34
+          type: number
+        lifecycleType:
+          description: Description not provided.
+          enum:
+          - NEW
+          - ENDORSEMENT
+          - RENEWAL
+          - CANCELED
+          - TERMINATED
+          type: string
+        payablePremium:
+          description: Description not provided.
+          example: 45.34
+          type: number
+        policyBundleId:
+          description: Description not provided.
+          example: b6fa9763-a573-4137-85c0-a10efa7e6be2
+          format: uuid
+          type: string
+        policyHolderId:
+          description: Description not provided.
+          example: 12374999-a2e4-494e-9c4c-15e8a8b9f8b5
+          format: uuid
+          type: string
+        policyNumber:
+          description: Description not provided.
+          example: ABC-00000012343
+          type: string
+        productId:
+          description: Description not provided.
+          example: 11374999-a2e4-494e-9c4c-15e8a8b9f8b5
+          format: uuid
+          type: string
+        renewsPolicyId:
+          description: Description not provided.
+          example: ce853344-0449-4ebe-ac76-b0b5b53ef7ed
+          format: uuid
+          type: string
+        sfVersion:
+          description: Description not provided.
+          example: 1
+          format: int32
+          type: integer
+        status:
+          description: Description not provided.
+          example: CREATED
+          type: string
+        taxAmount:
+          description: Description not provided.
+          example: 45.34
+          type: number
+      required:
+      - config
+      - coverageEndDate
+      - coverageStartDate
+      - fullPremium
+      - lifecycleType
+      - payablePremium
+      - policyBundleId
+      - policyHolderId
+      - policyNumber
+      - productId
+      - sfVersion
+      - status
+      - taxAmount
+      type: object
+    SuccessResultListPolicy:
+      example:
+        data:
+        - sfTenantId: 6
+          fullPremium: 45.34
+          policyHolderId: 12374999-a2e4-494e-9c4c-15e8a8b9f8b5
+          productId: 11374999-a2e4-494e-9c4c-15e8a8b9f8b5
+          sfVersion: 2
+          policyNumber: ABC-00000012343
+          lifecycleType: NEW
+          payablePremium: 45.34
+          sfCreated: 2018-06-28 12:00:00
+          policyBundleId: b6fa9763-a573-4137-85c0-a10efa7e6be2
+          renewsPolicyId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          coverageEndDate: 2019-09-11 00:00:00
+          coverageStartDate: 2019-09-11 00:00:00
+          sfPath: sfPath
+          id: 5e2226f0-e02a-43bb-ad53-94e4e75471aa
+          taxAmount: 45.34
+          config: '[Shift ProductEngine serialized config]'
+          sfUpdated: 2018-06-29 12:00:00
+          sfAccountId: 0
+          status: AMENDED
+        - sfTenantId: 6
+          fullPremium: 45.34
+          policyHolderId: 12374999-a2e4-494e-9c4c-15e8a8b9f8b5
+          productId: 11374999-a2e4-494e-9c4c-15e8a8b9f8b5
+          sfVersion: 2
+          policyNumber: ABC-00000012343
+          lifecycleType: NEW
+          payablePremium: 45.34
+          sfCreated: 2018-06-28 12:00:00
+          policyBundleId: b6fa9763-a573-4137-85c0-a10efa7e6be2
+          renewsPolicyId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          sfOwnerId: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          coverageEndDate: 2019-09-11 00:00:00
+          coverageStartDate: 2019-09-11 00:00:00
+          sfPath: sfPath
+          id: 5e2226f0-e02a-43bb-ad53-94e4e75471aa
+          taxAmount: 45.34
+          config: '[Shift ProductEngine serialized config]'
+          sfUpdated: 2018-06-29 12:00:00
+          sfAccountId: 0
+          status: AMENDED
+        meta:
+          processingTime: 9223372036854775807
+          transactionId: 1e6cb243-ec7d-4346-ba1e-a66246ad54d4
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/PolicyModel'
+          type: array
+        meta:
+          $ref: '#/components/schemas/Metadata'
+      required:
+      - data
+      - meta
+      type: object
+    PolicyCreateModel:
+      example:
+        fullPremium: 45.34
+        policyHolderId: 12374999-a2e4-494e-9c4c-15e8a8b9f8b5
+        productId: 11374999-a2e4-494e-9c4c-15e8a8b9f8b5
+        policyNumber: ABC-00000012343
+        lifecycleType: NEW
+        payablePremium: 45.34
+        policyBundleId: b6fa9763-a573-4137-85c0-a10efa7e6be2
+        renewsPolicyId: ce853344-0449-4ebe-ac76-b0b5b53ef7ed
+        coverageEndDate: 2019-09-11 00:00:00
+        coverageStartDate: 2019-09-11 00:00:00
+        taxAmount: 45.34
+        config: '[Shift ProductEngine serialized config]'
+        sfAccountId: 1
+        status: CREATED
+      properties:
+        config:
+          description: Description not provided.
+          example: '[Shift ProductEngine serialized config]'
+          type: string
+        coverageEndDate:
+          description: Description not provided.
+          example: 2019-09-11 00:00:00
+          type: string
+        coverageStartDate:
+          description: Description not provided.
+          example: 2019-09-11 00:00:00
+          type: string
+        fullPremium:
+          description: Description not provided.
+          example: 45.34
+          type: number
+        lifecycleType:
+          description: Description not provided.
+          enum:
+          - NEW
+          - ENDORSEMENT
+          - RENEWAL
+          - CANCELED
+          - TERMINATED
+          type: string
+        payablePremium:
+          description: Description not provided.
+          example: 45.34
+          type: number
+        policyBundleId:
+          description: Description not provided.
+          example: b6fa9763-a573-4137-85c0-a10efa7e6be2
+          format: uuid
+          type: string
+        policyHolderId:
+          description: Description not provided.
+          example: 12374999-a2e4-494e-9c4c-15e8a8b9f8b5
+          format: uuid
+          type: string
+        policyNumber:
+          description: Description not provided.
+          example: ABC-00000012343
+          type: string
+        productId:
+          description: Description not provided.
+          example: 11374999-a2e4-494e-9c4c-15e8a8b9f8b5
+          format: uuid
+          type: string
+        renewsPolicyId:
+          description: Description not provided.
+          example: ce853344-0449-4ebe-ac76-b0b5b53ef7ed
+          format: uuid
+          type: string
+        sfAccountId:
+          description: Description not provided.
+          example: 1
+          format: int32
+          type: integer
+        status:
+          description: Description not provided.
+          example: CREATED
+          type: string
+        taxAmount:
+          description: Description not provided.
+          example: 45.34
+          type: number
+      required:
+      - config
+      - coverageEndDate
+      - coverageStartDate
+      - fullPremium
+      - lifecycleType
+      - payablePremium
+      - policyBundleId
+      - policyHolderId
+      - policyNumber
+      - productId
+      - sfAccountId
+      - status
+      - taxAmount
+      type: object
